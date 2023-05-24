@@ -45,18 +45,18 @@
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <TextView
+                style="@style/mediumMyriadGeo_Normal_white"
                 android:layout_width="@dimen/dimen_82dp"
                 android:layout_height="@dimen/dimen_35dp"
-                tools:text="GPA-4.1"
+                android:layout_marginStart="16dp"
                 android:padding="@dimen/dimen_5dp"
                 android:textAlignment="center"
-                style="@style/mediumMyriadGeo_Normal_white"
                 app:cardCornerRadius="@dimen/dimen_15dp"
-                android:background="@color/blue_secondary_light"
-                android:layout_marginStart="@dimen/dimen_15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="GPA-4.1"
+                android:background="@drawable/rounded_corner"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

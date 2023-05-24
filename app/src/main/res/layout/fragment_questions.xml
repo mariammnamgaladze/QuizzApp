@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".presentation.question.QuestionsFragment">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <com.space.quizzapp.presentation.custom_view.QuizBackgroundCustomView
+        android:id="@+id/questionBackgroundCustomView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
         android:background="@drawable/rectange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +23,7 @@
         android:layout_height="@dimen/dimen_351dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/questionBackgroundCustomView" />
 
     <TextView
         android:id="@+id/subjectTextView"
