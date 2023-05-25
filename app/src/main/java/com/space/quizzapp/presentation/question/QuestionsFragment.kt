@@ -1,7 +1,4 @@
 package com.space.quizzapp.presentation.question
-
-
-import androidx.navigation.fragment.findNavController
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentQuestionsBinding
@@ -23,8 +20,6 @@ class QuestionsFragment : BaseFragment() {
     }
 
     private fun navigateToHome() {
-        findNavController().navigate(
-            R.id.action_questionsFragment_to_homeFragment
-        )
+        navigateTo(R.id.action_questionsFragment_to_homeFragment)
     }
 }

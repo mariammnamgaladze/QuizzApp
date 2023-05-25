@@ -1,11 +1,9 @@
 package com.space.quizzapp.presentation.home
-
-import androidx.navigation.fragment.findNavController
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentHomeBinding
 import com.space.quizzapp.presentation.base.BaseFragment
-import com.space.quizzapp.presentation.dialog.showTwoButtonDialog
+import com.space.quizzapp.presentation.dialog.MyDialogFragment
 
 class HomeFragment : BaseFragment() {
     private val binding by viewBinding(FragmentHomeBinding::bind)
@@ -19,28 +17,34 @@ class HomeFragment : BaseFragment() {
 
     private fun setListeners() {
         with(binding) {
-            detailImageButton.setOnClickListener { navigateToFragment(R.id.action_homeFragment_to_detailsFragment) }
-            homeRecyclerView.setRecyclerListener { navigateToFragment(R.id.action_homeFragment_to_questionsFragment) }
+            detailImageButton.setOnClickListener { navigateTo(R.id.action_homeFragment_to_detailsFragment) }
+            homeRecyclerView.setRecyclerListener { navigateTo(R.id.action_homeFragment_to_questionsFragment) }
         }
     }
 
     private fun dialogListener() {
         binding.logOutImageView.setOnClickListener {
-            showTwoButtonDialog(
+           /* showTwoButtonDialog(
                 requireContext(),
                 requireContext().getString(R.string.dialog_question),
                 requireContext().getDrawable(R.drawable.bkg_yes_button)!!,
                 requireContext().getDrawable(R.drawable.bkg_no_button)!!,
                 positiveButtonAction = {
-                    navigateToFragment(R.id.action_homeFragment_to_startFragment)
+                    navigateTo(R.id.action_homeFragment_to_startFragment)
                 },
                 negativeButtonAction = {
                 }
-            )
+            )*/
+            MyDialogFragment.twoButtonState(
+                requireContext().getString(R.string.dialog_question),
+                requireContext().getDrawable(R.drawable.bkg_yes_button)!!,
+                requireContext().getDrawable(R.drawable.bkg_no_button)!!,
+                positiveButtonAction = {
+                    navigateTo(R.id.action_homeFragment_to_startFragment)
+                },
+                negativeButtonAction = {}
+            ).show(parentFragmentManager, "TwoButtonDialog")
         }
     }
 
-    private fun navigateToFragment(destinationId: Int) {
-        findNavController().navigate(destinationId)
-    }
 }

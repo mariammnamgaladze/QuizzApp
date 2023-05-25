@@ -19,9 +19,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/questionsRecyclerView"
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_20dp"
         tools:listitem="@layout/answers_layout_item"
-        android:layout_height="@dimen/dimen_351dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        tools:itemCount="4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionBackgroundCustomView" />
 

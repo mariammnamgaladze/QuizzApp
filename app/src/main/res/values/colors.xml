@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="yellow_primary">#FFC44A</color>
     <color name="blue_secondary_default">#537FE7</color>
+    <color name="blue_secondary_lighter">#6B91EA</color>
+
     <color name="blue_secondary_light">#2CFFFFFF</color>
     <color name="neutral_01_dark_grey">#1D1D1D</color>
     <color name="neutral_02_grey">#B3B3B3</color>

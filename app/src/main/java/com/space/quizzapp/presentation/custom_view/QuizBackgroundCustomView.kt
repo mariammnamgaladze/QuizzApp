@@ -24,7 +24,7 @@ class QuizBackgroundCustomView(
 
         path.apply {
             reset()
-            paint.color = context.getColor(R.color.blue_secondary_light)
+            paint.color = context.getColor(R.color.blue_secondary_default)
             addCircle(centerX, centerY, radius, Path.Direction.CW)
 
             moveTo(0f, 0f)

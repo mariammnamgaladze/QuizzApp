@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 
 abstract class BaseFragment : Fragment() {
     protected abstract val layout: Int
@@ -19,6 +21,11 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onBind()
+    }
+
+    fun navigateTo(destinationId: Int) {
+        val navController = findNavController()
+        navController.navigate(destinationId)
     }
 
     abstract fun onBind()

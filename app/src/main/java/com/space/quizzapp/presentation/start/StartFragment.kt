@@ -1,11 +1,10 @@
 package com.space.quizzapp.presentation.start
 
-import androidx.navigation.fragment.findNavController
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentStartBinding
 import com.space.quizzapp.presentation.base.BaseFragment
-import com.space.quizzapp.presentation.dialog.showSingleButtonDialog
+import com.space.quizzapp.presentation.dialog.MyDialogFragment
 
 class StartFragment : BaseFragment() {
     private val binding by viewBinding(FragmentStartBinding::bind)
@@ -18,7 +17,7 @@ class StartFragment : BaseFragment() {
 
     private fun setListeners() {
         binding.startButton.setOnClickListener {
-            showSingleButtonDialog(
+           /* showSingleButtonDialog(
                 requireContext(),
                 requireContext().getDrawable(R.drawable.ic_congrats)!!,
                 requireContext().getString(R.string.congrats),
@@ -27,13 +26,21 @@ class StartFragment : BaseFragment() {
                 buttonAction = {
                     navigateToHome()
                 }
-            )
+            )*/
+            MyDialogFragment.oneButtonState(
+                requireContext().getDrawable(R.drawable.ic_congrats)!!,
+                requireContext().getString(R.string.congrats),
+                requireContext().getString(R.string.collected_points),
+                requireContext().getString(R.string.close),
+                buttonAction = {
+                    navigateTo(R.id.action_startFragment_to_homeFragment)
+                }
+            ).show(parentFragmentManager, "SingleButtonDialog")
+
         }
     }
 
     private fun navigateToHome() {
-        findNavController().navigate(
-            R.id.action_startFragment_to_homeFragment
-        )
+        navigateTo(R.id.action_startFragment_to_homeFragment)
     }
 }
