@@ -1,4 +1,5 @@
 package com.space.quizzapp.presentation.home
+
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentHomeBinding
@@ -24,17 +25,6 @@ class HomeFragment : BaseFragment() {
 
     private fun dialogListener() {
         binding.logOutImageView.setOnClickListener {
-           /* showTwoButtonDialog(
-                requireContext(),
-                requireContext().getString(R.string.dialog_question),
-                requireContext().getDrawable(R.drawable.bkg_yes_button)!!,
-                requireContext().getDrawable(R.drawable.bkg_no_button)!!,
-                positiveButtonAction = {
-                    navigateTo(R.id.action_homeFragment_to_startFragment)
-                },
-                negativeButtonAction = {
-                }
-            )*/
             MyDialogFragment.twoButtonState(
                 requireContext().getString(R.string.dialog_question),
                 requireContext().getDrawable(R.drawable.bkg_yes_button)!!,
@@ -46,5 +36,4 @@ class HomeFragment : BaseFragment() {
             ).show(parentFragmentManager, "TwoButtonDialog")
         }
     }
-
 }

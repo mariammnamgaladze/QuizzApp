@@ -17,8 +17,7 @@ class StartFragment : BaseFragment() {
 
     private fun setListeners() {
         binding.startButton.setOnClickListener {
-           /* showSingleButtonDialog(
-                requireContext(),
+            MyDialogFragment.oneButtonState(
                 requireContext().getDrawable(R.drawable.ic_congrats)!!,
                 requireContext().getString(R.string.congrats),
                 requireContext().getString(R.string.collected_points),
@@ -26,17 +25,7 @@ class StartFragment : BaseFragment() {
                 buttonAction = {
                     navigateToHome()
                 }
-            )*/
-            MyDialogFragment.oneButtonState(
-                requireContext().getDrawable(R.drawable.ic_congrats)!!,
-                requireContext().getString(R.string.congrats),
-                requireContext().getString(R.string.collected_points),
-                requireContext().getString(R.string.close),
-                buttonAction = {
-                    navigateTo(R.id.action_startFragment_to_homeFragment)
-                }
             ).show(parentFragmentManager, "SingleButtonDialog")
-
         }
     }
 
