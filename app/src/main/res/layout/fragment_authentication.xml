@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.start.StartFragment">
+   >
 
     <com.space.quizzapp.presentation.custom_view.StartBackgroundCustomView
         android:id="@+id/startBackgroundCustomView"
         android:layout_width="match_parent"
         app:layout_constraintHeight_percent="0.69"
         android:layout_height="0dp"
-        android:background="@drawable/bkg_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

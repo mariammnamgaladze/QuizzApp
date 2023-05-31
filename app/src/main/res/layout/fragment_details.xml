@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.detail.DetailsFragment">
+    tools:context=".presentation.detail.fragment.DetailsFragment">
 
     <ImageButton
         android:id="@+id/backImageButton"
@@ -35,7 +35,7 @@
 
     <TextView
         android:id="@+id/noPointTextView"
-        android:layout_width="@dimen/dimen_195dp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_84dp"
         style="@style/mediumMyriadGeo_Normal_black"
         android:textAlignment="center"
