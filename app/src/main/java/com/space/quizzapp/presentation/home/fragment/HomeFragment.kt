@@ -49,9 +49,8 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                 positiveButtonAction = {
                     viewModel.updateActiveStatus(isActive = false)
                     navigateTo(R.id.action_homeFragment_to_startFragment)
-                },
-                negativeButtonAction = {}
-            ).show(parentFragmentManager, "TwoButtonDialog")
+                }
+            ) {}.show(parentFragmentManager, "")
         }
     }
 }

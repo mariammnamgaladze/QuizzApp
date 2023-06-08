@@ -1,10 +1,10 @@
 package com.space.quizzapp.data.mapper
 
-import com.space.quizzapp.data.local.entity.UserEntity
+import com.space.quizzapp.data.local.entity.UserEntityModel
 import com.space.quizzapp.domain.model.UserDomainModel
 import com.space.quizzapp.presentation.model.UserUIModel
 
-fun UserDomainModel.toEntity() = UserEntity(
+fun UserDomainModel.toEntity() = UserEntityModel(
     id = id,
     username = username,
     isActive = isActive
@@ -16,7 +16,7 @@ fun UserUIModel.toDomainModel() = UserDomainModel(
     isActive = isActive
 )
 
-fun UserEntity.toDomainModel() = UserDomainModel(
+fun UserEntityModel.toDomainModel() = UserDomainModel(
     id = id,
     username = username,
     isActive = isActive

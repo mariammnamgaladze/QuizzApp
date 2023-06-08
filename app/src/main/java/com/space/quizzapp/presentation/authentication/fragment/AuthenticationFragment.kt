@@ -9,6 +9,7 @@ import com.space.quizzapp.presentation.authentication.viewmodel.AuthenticationVi
 import kotlin.reflect.KClass
 import com.space.quizzapp.common.resource.Result
 import com.space.quizzapp.databinding.FragmentAuthenticationBinding
+import kotlinx.coroutines.Dispatchers
 
 class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
     private val binding by viewBinding(FragmentAuthenticationBinding::bind)
@@ -32,6 +33,7 @@ class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
         val username = binding.usernameEditText.text.toString()
         viewModel.checkUsernameAvailability(username)
         lifecycleScope {
+            (Dispatchers.IO)
             viewModel.usernameAvailability.collect { result ->
                 if (result is Result.Success) {
                     viewModel.updateUserActiveStatus(username, true)
