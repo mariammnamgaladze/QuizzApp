@@ -9,18 +9,17 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface UserDao {
     @Query("SELECT * FROM user_info WHERE username = :username")
-     fun observeUserByUsername(username: String): Flow<UserEntity>
+    fun observeUser(username: String): Flow<UserEntity>
 
     @Insert
-    suspend fun saveAllUserInfo(user: UserEntity)
+    suspend fun insertUser(user: UserEntity)
 
     @Query("SELECT * FROM user_info WHERE username = :username")
-    suspend fun getUserByUsername(username: String): UserEntity
+    suspend fun getUser(username: String): UserEntity
 
     @Query("SELECT * FROM user_info WHERE isActive = :isActive")
     suspend fun getCurrentUser(isActive: Boolean): UserEntity
 
     @Query("UPDATE user_info SET isActive = :isActive WHERE username = :username")
     suspend fun updateUserActiveStatus(username: String, isActive: Boolean)
-
 }

@@ -6,7 +6,7 @@
     app:startDestination="@id/startFragment">
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.space.quizzapp.presentation.start.fragment.AuthenticationFragment"
+        android:name="com.space.quizzapp.presentation.authentication.fragment.AuthenticationFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_authentication" >
         <action

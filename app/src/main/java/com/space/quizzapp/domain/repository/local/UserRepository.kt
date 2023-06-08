@@ -1,14 +1,14 @@
 package com.space.quizzapp.domain.repository.local
 
-import com.space.quizzapp.domain.model.DomainUserModel
+import com.space.quizzapp.domain.model.UserDomainModel
 import kotlinx.coroutines.flow.Flow
 
 
 interface UserRepository {
-    suspend fun saveAllUserInfo(domainUserModel: DomainUserModel)
+    suspend fun insertUser(userDomainModel: UserDomainModel)
     suspend fun isUsernameAvailable(username: String): Boolean
-    suspend fun observeUserByUsername(username: String): Flow<DomainUserModel>
-    suspend fun getCurrentUser(isActive: Boolean): DomainUserModel
+    suspend fun observeUser(username: String): Flow<UserDomainModel>
+    suspend fun getCurrentUser(isActive: Boolean): UserDomainModel
     suspend fun updateUserActiveStatus(username: String, isActive: Boolean)
 
 }

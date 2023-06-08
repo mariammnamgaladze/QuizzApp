@@ -1,22 +1,22 @@
-package com.space.quizzapp.presentation.start.viewmodel
+package com.space.quizzapp.presentation.authentication.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.space.quizzapp.R
 import com.space.quizzapp.common.exception.InvalidUsernameException
-import com.space.quizzapp.domain.usecase.user.save_user.SaveUserInfoUseCase
+import com.space.quizzapp.common.extensions.viewModelScope
+import com.space.quizzapp.domain.usecase.user.save_user.SaveUserUseCase
 import com.space.quizzapp.domain.usecase.user.user_validation.UsernameValidationUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import com.space.quizzapp.common.resource.Result
 import com.space.quizzapp.data.mapper.toDomainModel
 import com.space.quizzapp.domain.usecase.user.update_user_status.UpdateUserActiveStatusUseCase
-import com.space.quizzapp.presentation.model.UIUserModel
+import com.space.quizzapp.presentation.model.UserUIModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AuthenticationFragmentViewModel(
-    private val saveUserInfoUseCase: SaveUserInfoUseCase,
+class AuthenticationViewModel(
+    private val saveUserUseCase: SaveUserUseCase,
     private val usernameValidationUseCase: UsernameValidationUseCase,
     private val updateUserActiveStatusUseCase: UpdateUserActiveStatusUseCase
 ) : ViewModel() {
@@ -25,7 +25,7 @@ class AuthenticationFragmentViewModel(
     val usernameAvailability: StateFlow<Result<Boolean>> = _usernameAvailability
 
     fun checkUsernameAvailability(username: String) {
-        viewModelScope.launch {
+        viewModelScope {
             _usernameAvailability.value = Result.Loading
 
             if (isUsernameValid(username)) {
@@ -39,7 +39,7 @@ class AuthenticationFragmentViewModel(
                 }
             } else {
                 _usernameAvailability.value =
-                    Result.Error(InvalidUsernameException("Invalid username format"))
+                    Result.Error(InvalidUsernameException(R.string.incorrect_input.toString()))
             }
         }
     }
@@ -51,12 +51,12 @@ class AuthenticationFragmentViewModel(
 
     private fun saveUserInfo(username: String) {
         if (username.isNotEmpty()) {
-            viewModelScope.launch {
-                val userInfo = UIUserModel(
+            viewModelScope {
+                val userInfo = UserUIModel(
                     username = username,
                     isActive = true
                 )
-                saveUserInfoUseCase.invoke(userInfo.toDomainModel())
+                saveUserUseCase.invoke(userInfo.toDomainModel())
             }
         }
     }
@@ -66,5 +66,4 @@ class AuthenticationFragmentViewModel(
             updateUserActiveStatusUseCase.updateUserActiveStatus(username, isActive)
         }
     }
-
 }

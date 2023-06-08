@@ -8,7 +8,7 @@ import org.koin.dsl.module
 private fun provideMessagesDatabase(context: Context): UserDatabase {
     return Room.databaseBuilder(
         context,
-       UserDatabase::class.java,
+        UserDatabase::class.java,
         "messages"
     )
         .fallbackToDestructiveMigration()

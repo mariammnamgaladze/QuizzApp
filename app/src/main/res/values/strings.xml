@@ -14,5 +14,6 @@
     <string name="collected_points">შენ დააგროვე  %1$d ქულა</string>
     <string name="gpa">GPA-%1$.1f </string>
     <string name="congrats">გილოცავ!</string>
+    <string name="incorrect_input">"არავალიდური სახელი"!</string>
     <string name="next">შემდეგი</string>
 </resources>

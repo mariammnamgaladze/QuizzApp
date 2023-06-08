@@ -1,6 +1,7 @@
 package com.space.quizzapp.domain.model
-data class DomainUserModel(
+
+data class UserDomainModel(
     val id: Int? = null,
     var username: String,
-    var isActive:Boolean
+    var isActive: Boolean
 )

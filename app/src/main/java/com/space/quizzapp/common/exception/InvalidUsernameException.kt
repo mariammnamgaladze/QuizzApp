@@ -1,3 +1,3 @@
 package com.space.quizzapp.common.exception
 
-class InvalidUsernameException(message: String) : Exception(message)
+data class InvalidUsernameException(override val message: String) : Exception(message)

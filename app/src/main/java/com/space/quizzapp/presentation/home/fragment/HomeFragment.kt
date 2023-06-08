@@ -1,36 +1,34 @@
 package com.space.quizzapp.presentation.home.fragment
 
-import androidx.lifecycle.lifecycleScope
 import com.space.quizzapp.R
+import com.space.quizzapp.common.extensions.lifecycleScope
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentHomeBinding
 import com.space.quizzapp.presentation.base.BaseFragment
 import com.space.quizzapp.presentation.dialog.fragment.QuizzDialogFragment
-import com.space.quizzapp.presentation.home.viewmodel.HomeFragmentViewModel
-import kotlinx.coroutines.launch
+import com.space.quizzapp.presentation.home.viewmodel.HomeViewModel
 import kotlin.reflect.KClass
 
-class HomeFragment : BaseFragment<HomeFragmentViewModel>() {
+class HomeFragment : BaseFragment<HomeViewModel>() {
 
-    override val viewModelClass: KClass<HomeFragmentViewModel>
-        get() = HomeFragmentViewModel::class
+    override val viewModelClass: KClass<HomeViewModel>
+        get() = HomeViewModel::class
 
     private val binding by viewBinding(FragmentHomeBinding::bind)
     override val layout: Int
         get() = R.layout.fragment_home
 
-    override fun onBind(viewModel: HomeFragmentViewModel) {
+    override fun onBind(viewModel: HomeViewModel) {
         showUserInfo(viewModel)
         setListeners()
         dialogListener(viewModel)
     }
 
-    private fun showUserInfo(viewModel: HomeFragmentViewModel) {
+    private fun showUserInfo(viewModel: HomeViewModel) {
         viewModel.getActiveUsernames()
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope {
             viewModel.activeUsernames.collect {
-                val greetingText = getString(R.string.greeting_text, it)
-                binding.greetingTextView.text = greetingText
+                binding.greetingTextView.text =  getString(R.string.greeting_text, it)
             }
         }
     }
@@ -42,7 +40,7 @@ class HomeFragment : BaseFragment<HomeFragmentViewModel>() {
         }
     }
 
-    private fun dialogListener(viewModel: HomeFragmentViewModel) {
+    private fun dialogListener(viewModel: HomeViewModel) {
         binding.logOutImageView.setOnClickListener {
             QuizzDialogFragment.twoButtonState(
                 requireContext().getString(R.string.dialog_log_out_question),

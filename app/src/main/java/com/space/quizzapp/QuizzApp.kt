@@ -16,7 +16,7 @@ class QuizzApp : Application() {
             androidLogger()
             androidContext(this@QuizzApp)
             modules(
-                UseCaseModule,databaseModule,repositoryModule,viewModelModule
+                UseCaseModule, databaseModule, repositoryModule, viewModelModule
             )
         }
     }

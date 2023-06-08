@@ -4,19 +4,18 @@ import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentDetailsBinding
 import com.space.quizzapp.presentation.base.BaseFragment
-import com.space.quizzapp.presentation.detail.viewmodel.DetailsFragmentViewModel
-import com.space.quizzapp.presentation.start.viewmodel.AuthenticationFragmentViewModel
+import com.space.quizzapp.presentation.detail.viewmodel.DetailsViewModel
 import kotlin.reflect.KClass
 
-class DetailsFragment : BaseFragment<DetailsFragmentViewModel>() {
+class DetailsFragment : BaseFragment<DetailsViewModel>() {
 
-    override val viewModelClass: KClass<DetailsFragmentViewModel>
-        get() = DetailsFragmentViewModel::class
+    override val viewModelClass: KClass<DetailsViewModel>
+        get() = DetailsViewModel::class
     private val binding by viewBinding(FragmentDetailsBinding::bind)
     override val layout: Int
         get() = R.layout.fragment_details
 
-    override fun onBind(viewModel: DetailsFragmentViewModel) {
+    override fun onBind(viewModel: DetailsViewModel) {
         setListeners()
     }
 

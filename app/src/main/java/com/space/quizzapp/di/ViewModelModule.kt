@@ -1,15 +1,15 @@
 package com.space.quizzapp.di
 
-import com.space.quizzapp.presentation.home.viewmodel.HomeFragmentViewModel
-import com.space.quizzapp.presentation.start.viewmodel.AuthenticationFragmentViewModel
+import com.space.quizzapp.presentation.home.viewmodel.HomeViewModel
+import com.space.quizzapp.presentation.authentication.viewmodel.AuthenticationViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel {
-        AuthenticationFragmentViewModel(get(),get(),get())
+        AuthenticationViewModel(get(),get(),get())
     }
     viewModel {
-        HomeFragmentViewModel(get(),get())
+        HomeViewModel(get(),get())
     }
 }
