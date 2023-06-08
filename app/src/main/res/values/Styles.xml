@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="mediumMyriadGeo_Normal_black">
+        <item name="android:textSize">@dimen/dimen_16sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
+    <style name="mediumMyriadGeo_Normal_white">
+        <item name="android:textSize">@dimen/dimen_16sp</item>
+        <item name="android:textColor">@color/neutral_04_white</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
+    <style name="mediumMyriadGeo_Normal_blue">
+        <item name="android:textSize">@dimen/dimen_16sp</item>
+        <item name="android:textColor">#537FE7</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
+    <style name="mediumMyriadGeo_Normal_grey">
+        <item name="android:textSize">@dimen/dimen_16sp</item>
+        <item name="android:textColor">@color/neutral_02_grey</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
+    <style name="mediumMyriadGeo_Normal_yellow">
+        <item name="android:textSize">@dimen/dimen_16sp</item>
+        <item name="android:textColor">@color/yellow_primary</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
+    <style name="BigMyriadGeo_Normal_grey">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/dimen_20sp</item>
+        <item name="android:textColor">@color/neutral_02_grey</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
+    <style name="BigMyriadGeo_Normal_white">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/dimen_20sp</item>
+        <item name="android:textColor">@color/neutral_04_white</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
+    <style name="BigMyriadGeo_Normal_black">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/dimen_20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
+    <style name="smallMyriadGeo_Normal_grey">
+        <item name="android:textSize">@dimen/dimen_12sp</item>
+        <item name="android:textColor">@color/neutral_02_grey</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
+    <style name="smallMyriadGeo_Normal_black">
+        <item name="android:textSize">@dimen/dimen_12sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
+    <style name="smallMyriadGeo_Normal_white">
+        <item name="android:textSize">@dimen/dimen_12sp</item>
+        <item name="android:textColor">@color/neutral_04_white</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
+
+</resources>
