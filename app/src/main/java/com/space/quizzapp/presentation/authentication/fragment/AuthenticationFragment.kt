@@ -4,7 +4,7 @@ import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.lifecycleScope
 import com.space.quizzapp.common.extensions.showToast
 import com.space.quizzapp.common.extensions.viewBinding
-import com.space.quizzapp.presentation.base.BaseFragment
+import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.authentication.viewmodel.AuthenticationViewModel
 import kotlin.reflect.KClass
 import com.space.quizzapp.common.resource.Result
@@ -37,15 +37,14 @@ class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
             viewModel.usernameAvailability.collect { result ->
                 if (result is Result.Success) {
                     viewModel.updateUserActiveStatus(username, true)
-                    navigateToHome()
                 } else if (result is Result.Error) {
                     requireContext().showToast(getString(R.string.incorrect_input))
                 }
             }
         }
     }
-
+/*
     private fun navigateToHome() {
         navigateTo(R.id.action_startFragment_to_homeFragment)
-    }
+    }*/
 }

@@ -3,7 +3,7 @@ package com.space.quizzapp.presentation.detail.fragment
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentDetailsBinding
-import com.space.quizzapp.presentation.base.BaseFragment
+import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.detail.viewmodel.DetailsViewModel
 import kotlin.reflect.KClass
 
@@ -21,14 +21,14 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
 
     private fun setListeners() {
         binding.backImageButton.setOnClickListener {
-            navigateToHome()
+        //    navigateToHome()
         }
     }
 
-    private fun navigateToHome() {
+   /* private fun navigateToHome() {
         navigateTo(
             R.id.action_detailsFragment_to_homeFragment
         )
-    }
+    }*/
 
 }

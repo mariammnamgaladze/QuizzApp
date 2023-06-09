@@ -1,6 +1,5 @@
 package com.space.quizzapp.presentation.authentication.viewmodel
 
-import androidx.lifecycle.ViewModel
 import com.space.quizzapp.R
 import com.space.quizzapp.common.exception.InvalidUsernameException
 import com.space.quizzapp.common.extensions.viewModelScope
@@ -11,6 +10,8 @@ import kotlinx.coroutines.flow.StateFlow
 import com.space.quizzapp.common.resource.Result
 import com.space.quizzapp.data.mapper.toDomainModel
 import com.space.quizzapp.domain.usecase.user.update_user_status.UpdateUserActiveStatusUseCase
+import com.space.quizzapp.presentation.authentication.fragment.AuthenticationFragmentDirections
+import com.space.quizzapp.presentation.base.viewmodel.BaseViewModel
 import com.space.quizzapp.presentation.model.UserUIModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -19,20 +20,19 @@ class AuthenticationViewModel(
     private val saveUserUseCase: SaveUserUseCase,
     private val usernameValidationUseCase: UsernameValidationUseCase,
     private val updateUserActiveStatusUseCase: UpdateUserActiveStatusUseCase
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _usernameAvailability = MutableStateFlow<Result<Boolean>>(Result.Success(true))
     val usernameAvailability: StateFlow<Result<Boolean>> = _usernameAvailability
 
     fun checkUsernameAvailability(username: String) {
         viewModelScope {
-            _usernameAvailability.value = Result.Loading
-
             if (isUsernameValid(username)) {
                 val isUsernameAvailable = withContext(Dispatchers.IO) {
                     usernameValidationUseCase.isUsernameAvailable(username)
                 }
                 _usernameAvailability.value = Result.Success(isUsernameAvailable)
+                navigateTo()
 
                 if (isUsernameAvailable) {
                     saveUserInfo(username)
@@ -65,5 +65,9 @@ class AuthenticationViewModel(
         withContext(Dispatchers.IO) {
             updateUserActiveStatusUseCase.updateUserActiveStatus(username, isActive)
         }
+    }
+
+    private fun navigateTo() {
+        navigate(AuthenticationFragmentDirections.actionStartFragmentToHomeFragment())
     }
 }

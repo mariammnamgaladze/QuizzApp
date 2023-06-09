@@ -14,6 +14,6 @@ abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
-        const val DB_VERSION = 5
+        const val DB_VERSION = 6
     }
 }

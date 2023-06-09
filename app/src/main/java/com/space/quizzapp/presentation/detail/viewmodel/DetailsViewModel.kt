@@ -1,6 +1,6 @@
 package com.space.quizzapp.presentation.detail.viewmodel
 
-import androidx.lifecycle.ViewModel
+import com.space.quizzapp.presentation.base.viewmodel.BaseViewModel
 
-class DetailsViewModel:ViewModel() {
+class DetailsViewModel: BaseViewModel()  {
 }
