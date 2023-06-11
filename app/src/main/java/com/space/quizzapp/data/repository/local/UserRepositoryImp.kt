@@ -10,11 +10,13 @@ import kotlinx.coroutines.flow.map
 
 class UserRepositoryImp(private val userDao: UserDao) : UserRepository {
     override suspend fun insertUser(userDomainModel: UserDomainModel) {
-        userDao.insertUser(userDomainModel.toEntity())
+        if (!isUsernameAvailable(userDomainModel.username)) {
+            userDao.insertUser(userDomainModel.toEntity())
+        } else userDao.updateUserActiveStatus(userDomainModel.username,true)
     }
 
     override suspend fun isUsernameAvailable(username: String): Boolean {
-        return userDao.getUser(username) == null
+        return userDao.getUser(username) != null
     }
 
     override suspend fun observeUser(username: String): Flow<UserDomainModel> {

@@ -15,7 +15,7 @@ interface UserDao {
     suspend fun insertUser(user: UserEntityModel)
 
     @Query("SELECT * FROM user_info WHERE username = :username")
-    suspend fun getUser(username: String): UserEntityModel
+    suspend fun getUser(username: String): UserEntityModel?
 
     @Query("SELECT * FROM user_info WHERE isActive = :isActive")
     suspend fun getCurrentUser(isActive: Boolean): UserEntityModel
