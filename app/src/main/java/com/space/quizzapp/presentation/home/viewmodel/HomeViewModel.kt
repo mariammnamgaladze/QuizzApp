@@ -1,11 +1,9 @@
 package com.space.quizzapp.presentation.home.viewmodel
 
-import androidx.lifecycle.ViewModel
 import com.space.quizzapp.common.extensions.viewModelScope
 import com.space.quizzapp.domain.usecase.user.active_user.GetCurrentUserUseCase
 import com.space.quizzapp.domain.usecase.user.update_user_status.UpdateUserActiveStatusUseCase
 import com.space.quizzapp.presentation.base.viewmodel.BaseViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 
@@ -21,7 +19,6 @@ class HomeViewModel(
 
     fun getActiveUsernames() {
         viewModelScope {
-            (Dispatchers.IO)
             val activeUser = getCurrentUserUseCase(isActive = true)
             activeUsername = activeUser.username
             _activeUsernames.emit(activeUsername)
@@ -30,7 +27,6 @@ class HomeViewModel(
 
     fun updateActiveStatus(isActive: Boolean) {
         viewModelScope {
-            (Dispatchers.IO)
             updateUserActiveStatusUseCase.updateUserActiveStatus(activeUsername, isActive)
         }
     }
