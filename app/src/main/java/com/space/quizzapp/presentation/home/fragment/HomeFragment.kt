@@ -1,5 +1,9 @@
 package com.space.quizzapp.presentation.home.fragment
 
+import HomeAdapter
+import android.util.Log
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.lifecycleScope
 import com.space.quizzapp.common.extensions.viewBinding
@@ -7,6 +11,7 @@ import com.space.quizzapp.databinding.FragmentHomeBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.dialog.fragment.QuizzDialogFragment
 import com.space.quizzapp.presentation.home.viewmodel.HomeViewModel
+import com.space.quizzapp.presentation.model.QuizItemUIModel
 import kotlin.reflect.KClass
 
 class HomeFragment : BaseFragment<HomeViewModel>() {
@@ -18,10 +23,46 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     override val layout: Int
         get() = R.layout.fragment_home
 
+    private val homeAdapter by lazy {
+        HomeAdapter()
+    }
+
     override fun onBind(viewModel: HomeViewModel) {
         showUserInfo(viewModel)
-        setListeners()
+        setListeners(viewModel)
         dialogListener(viewModel)
+        observer(viewModel)
+        setUpRecycler(viewModel)
+    }
+
+    private fun setUpRecycler(viewModel: HomeViewModel) {
+        binding.homeRecyclerView.apply {
+            adapter = homeAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        lifecycleScope {
+            Log.d("HomeFragment", "Before getting quiz questions")
+            viewModel.getQuizQuestions()
+            Log.d("HomeFragment", "After getting quiz questions")
+        }
+    }
+
+    private fun observer(viewModel: HomeViewModel) {
+        lifecycleScope {
+            viewModel.quizItems.collect {
+                Log.d("HomeFragment", "Received quiz items: $it")
+                homeAdapter.submitList(it)
+            }
+        }
+        lifecycleScope {
+            viewModel.isLoading.collect { isLoading ->
+                binding.progressBar.visibility = if (isLoading) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+            }
+        }
     }
 
     private fun showUserInfo(viewModel: HomeViewModel) {
@@ -33,12 +74,15 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
     }
 
-
-    private fun setListeners() {
+    private fun setListeners(viewModel: HomeViewModel) {
         with(binding) {
-            detailImageButton.setOnClickListener { navigateTo(R.id.action_homeFragment_to_detailsFragment) }
-            homeRecyclerView.setRecyclerListener { navigateTo(R.id.action_homeFragment_to_questionsFragment) }
+            detailImageButton.setOnClickListener { viewModel.navigateToDetails() }
         }
+        homeAdapter.setOnItemClickListener(object : HomeAdapter.OnItemClickListener {
+            override fun onItemClick(item: QuizItemUIModel) {
+                viewModel.navigateToQuiz()
+            }
+        })
     }
 
     private fun dialogListener(viewModel: HomeViewModel) {
@@ -49,7 +93,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                 requireContext().getDrawable(R.drawable.bkg_no_button)!!,
                 positiveButtonAction = {
                     viewModel.updateActiveStatus(isActive = false)
-                    navigateTo(R.id.action_homeFragment_to_startFragment)
+                    viewModel.navigateToStart()
                 }
             ) {}.show(parentFragmentManager, "")
         }

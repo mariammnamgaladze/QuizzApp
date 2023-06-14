@@ -1,5 +1,7 @@
 package com.space.quizzapp.di
 
+import com.space.quizzapp.domain.usecase.quiz.GetQuizUseCase
+import com.space.quizzapp.domain.usecase.quiz.GetQuizUseCaseImpl
 import com.space.quizzapp.domain.usecase.user.active_user.GetCurrentUserUseCase
 import com.space.quizzapp.domain.usecase.user.active_user.GetCurrentUserUseCaseImpl
 import com.space.quizzapp.domain.usecase.user.observe_user.ObserveUserUseCase
@@ -18,4 +20,5 @@ val UseCaseModule = module {
     single<UsernameValidationUseCase> {UsernameValidationUseCaseImpl(get()) }
     single<GetCurrentUserUseCase> { GetCurrentUserUseCaseImpl(get()) }
     single<UpdateUserActiveStatusUseCase> { UpdateUserActiveStatusUseCaseImpl(get()) }
+    single<GetQuizUseCase> { GetQuizUseCaseImpl(get()) }
 }
