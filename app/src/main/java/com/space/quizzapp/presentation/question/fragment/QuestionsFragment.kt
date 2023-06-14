@@ -19,11 +19,11 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
 
     private fun setListeners() {
         binding.exitImageView.setOnClickListener {
-           // navigateToHome()
+           navigateToHome()
         }
     }
 
-  /*  private fun navigateToHome() {
+    private fun navigateToHome() {
         navigateTo(R.id.action_questionsFragment_to_homeFragment)
-    }*/
+    }
 }

@@ -21,14 +21,14 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
 
     private fun setListeners() {
         binding.backImageButton.setOnClickListener {
-        //    navigateToHome()
+            navigateToHome()
         }
     }
 
-   /* private fun navigateToHome() {
+    private fun navigateToHome() {
         navigateTo(
             R.id.action_detailsFragment_to_homeFragment
         )
-    }*/
+    }
 
 }
