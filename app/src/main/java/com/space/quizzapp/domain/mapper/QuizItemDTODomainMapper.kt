@@ -5,7 +5,7 @@ import com.space.quizzapp.data.remote.model.QuizItemDTO
 import com.space.quizzapp.domain.model.QuizItemDomainModel
 
 
-class QuizItemMapper : ModelMapper<QuizItemDTO, QuizItemDomainModel> {
+class QuizItemDTODomainMapper : ModelMapper<QuizItemDTO, QuizItemDomainModel> {
     override fun invoke(model: QuizItemDTO): QuizItemDomainModel {
         return QuizItemDomainModel(
             id = model.id?.toIntOrNull(),
