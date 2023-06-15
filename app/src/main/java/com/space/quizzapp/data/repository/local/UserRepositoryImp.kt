@@ -12,7 +12,7 @@ class UserRepositoryImp(private val userDao: UserDao) : UserRepository {
     override suspend fun insertUser(userDomainModel: UserDomainModel) {
         if (!isUsernameAvailable(userDomainModel.username)) {
             userDao.insertUser(userDomainModel.toEntity())
-        } else userDao.updateUserActiveStatus(userDomainModel.username,true)
+        } else userDao.updateUserActiveStatus(userDomainModel.username, true)
     }
 
     override suspend fun isUsernameAvailable(username: String): Boolean {
