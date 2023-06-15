@@ -7,12 +7,10 @@ import com.space.quizzapp.domain.model.QuizItemDomainModel
 import com.space.quizzapp.domain.usecase.quiz.GetQuizUseCase
 import com.space.quizzapp.domain.usecase.user.active_user.GetCurrentUserUseCase
 import com.space.quizzapp.domain.usecase.user.update_user_status.UpdateUserActiveStatusUseCase
-import com.space.quizzapp.presentation.authentication.fragment.AuthenticationFragmentDirections
 import com.space.quizzapp.presentation.base.viewmodel.BaseViewModel
 import com.space.quizzapp.presentation.home.fragment.HomeFragmentDirections
 import com.space.quizzapp.presentation.model.QuizItemUIModel
 import kotlinx.coroutines.flow.*
-
 
 class HomeViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
@@ -38,7 +36,7 @@ class HomeViewModel(
     fun getQuizQuestions() {
         viewModelScope {
             _isLoading.value = true
-            getQuizUseCase.execute()
+            getQuizUseCase.invoke()
                 .onEach { responseHandler ->
                     when (responseHandler) {
                         is ResponseHandler.Success -> {
@@ -67,7 +65,7 @@ class HomeViewModel(
 
     fun getActiveUsernames() {
         viewModelScope {
-            val activeUser = getCurrentUserUseCase(isActive = true)
+            val activeUser = getCurrentUserUseCase.invoke(true)
             activeUsername = activeUser.username
             _activeUsernames.emit(activeUsername)
         }
@@ -75,17 +73,19 @@ class HomeViewModel(
 
     fun updateActiveStatus(isActive: Boolean) {
         viewModelScope {
-            updateUserActiveStatusUseCase.updateUserActiveStatus(activeUsername, isActive)
+            updateUserActiveStatusUseCase.invoke(activeUsername to isActive)
         }
     }
 
-     fun navigateToDetails() {
+    fun navigateToDetails() {
         navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment())
     }
-     fun navigateToStart() {
+
+    fun navigateToStart() {
         navigate(HomeFragmentDirections.actionHomeFragmentToStartFragment())
     }
-     fun navigateToQuiz() {
+
+    fun navigateToQuiz() {
         navigate(HomeFragmentDirections.actionHomeFragmentToQuestionsFragment())
     }
 }
