@@ -1,6 +1,5 @@
 package com.space.quizzapp.data.remote.model
 
-//TODO QuizResponseDTO
 data class QuizItemDTO(
     val id: String,
     val questionsCount: Int,
