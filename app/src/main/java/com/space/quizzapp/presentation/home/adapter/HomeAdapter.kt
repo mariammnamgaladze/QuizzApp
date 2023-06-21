@@ -7,7 +7,8 @@ import com.space.quizzapp.databinding.SubjectLayoutItemBinding
 import com.space.quizzapp.presentation.home.adapter.DiffCallback
 import com.space.quizzapp.presentation.model.QuizItemUIModel
 
-class HomeAdapter : ListAdapter<QuizItemUIModel, HomeAdapter.QuizSubjectViewHolder>(DiffCallback()) {
+class HomeAdapter :
+    ListAdapter<QuizItemUIModel, HomeAdapter.QuizSubjectViewHolder>(DiffCallback()) {
 
     private var itemClickListener: OnItemClickListener? = null
 
@@ -41,4 +42,5 @@ class HomeAdapter : ListAdapter<QuizItemUIModel, HomeAdapter.QuizSubjectViewHold
     interface OnItemClickListener {
         fun onItemClick(item: QuizItemUIModel)
     }
+
 }

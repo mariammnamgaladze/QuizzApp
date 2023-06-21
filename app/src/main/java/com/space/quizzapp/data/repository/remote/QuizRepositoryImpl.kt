@@ -10,22 +10,24 @@ import kotlinx.coroutines.flow.flow
 
 class QuizRepositoryImpl(
     private val apiService: QuizApiService,
-    private val quizItemDTODomainMapper: QuizItemDTODomainMapper
+    private val quizItemDTODomainMapper: QuizItemDTODomainMapper,
 ) : QuizRepository {
 
-    override suspend fun getQuizQuestions(): Flow<ResponseHandler<List<QuizItemDomainModel>>> {
+    override suspend fun getQuiz(): Flow<ResponseHandler<List<QuizItemDomainModel>>> {
         return flow {
             emit(ResponseHandler.InProcess())
             val response = apiService.getQuizQuestions()
             if (response.isSuccessful && response.body() != null) {
                 val quizItemDTO = response.body()!!
-                val quizQuestionDomainList = quizItemDTO.map {
+                val quizSubjectDomainList = quizItemDTO.map {
                     quizItemDTODomainMapper(it)
                 }
-                emit(ResponseHandler.Success(quizQuestionDomainList))
+                emit(ResponseHandler.Success(quizSubjectDomainList))
             } else {
-                emit(ResponseHandler.Error("Error"))
+                emit(ResponseHandler.Error(""))
             }
         }
     }
 }
+
+

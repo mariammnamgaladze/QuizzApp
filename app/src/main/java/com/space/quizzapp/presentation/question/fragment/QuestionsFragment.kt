@@ -1,5 +1,8 @@
 package com.space.quizzapp.presentation.question.fragment
+
+import androidx.navigation.fragment.navArgs
 import com.space.quizzapp.R
+import com.space.quizzapp.common.extensions.lifecycleScope
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentQuestionsBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
@@ -12,18 +15,43 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
     private val binding by viewBinding(FragmentQuestionsBinding::bind)
     override val layout: Int
         get() = R.layout.fragment_questions
+    private val args: QuestionsFragmentArgs by navArgs()
+
 
     override fun onBind(viewModel: QuestionsViewModel) {
-        setListeners()
+        navigateToHome()
+        val quiz = args.item
+        binding.subjectTextView.text = quiz.quizTitle
+        viewModel.quizModel = quiz
+        observer(viewModel)
+        viewModel.getQuiz()
+        setListeners(viewModel)
     }
 
-    private fun setListeners() {
-        binding.exitImageView.setOnClickListener {
-           navigateToHome()
+    private fun observer(viewModel: QuestionsViewModel) {
+        lifecycleScope {
+            viewModel.quizItem.collect {
+                binding.questionsTextView.text = it.questionTitle
+                binding.quizContainerView.setAnswersList(it)
+            }
         }
     }
 
-    private fun navigateToHome() {
-        navigateTo(R.id.action_questionsFragment_to_homeFragment)
+    private fun setListeners(viewModel: QuestionsViewModel) {
+        binding.materialButton.isEnabled = false
+        binding.materialButton.setOnClickListener {
+            viewModel.getQuiz()
+        }
+        binding.quizContainerView.setOnStateViewClickListener { stateViewClicked ->
+            binding.materialButton.isEnabled = true
+        }
     }
+
+
+    private fun navigateToHome() {
+        binding.exitImageView.setOnClickListener {
+            navigateTo(R.id.action_questionsFragment_to_homeFragment)
+        }
+    }
+
 }

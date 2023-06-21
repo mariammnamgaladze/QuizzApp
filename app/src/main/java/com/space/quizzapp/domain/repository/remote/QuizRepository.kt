@@ -5,5 +5,5 @@ import com.space.quizzapp.domain.model.QuizItemDomainModel
 import kotlinx.coroutines.flow.Flow
 
 interface QuizRepository {
-    suspend fun getQuizQuestions(): Flow<ResponseHandler<List<QuizItemDomainModel>>>
+    suspend fun getQuiz(): Flow<ResponseHandler<List<QuizItemDomainModel>>>
 }

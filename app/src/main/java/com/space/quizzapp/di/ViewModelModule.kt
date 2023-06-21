@@ -13,7 +13,7 @@ val viewModelModule = module {
         AuthenticationViewModel(get())
     }
     viewModel {
-        HomeViewModel(get(),get(),get(),QuizItemDomainUIMapper())
+        HomeViewModel(get(), get(), get(), QuizItemDomainUIMapper())
     }
     viewModel {
         DetailsViewModel()

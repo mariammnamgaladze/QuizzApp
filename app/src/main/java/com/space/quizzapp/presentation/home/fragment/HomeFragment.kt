@@ -42,7 +42,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
         lifecycleScope {
             Log.d("HomeFragment", "Before getting quiz questions")
-            viewModel.getQuizQuestions()
+            viewModel.getQuiz()
             Log.d("HomeFragment", "After getting quiz questions")
         }
     }
@@ -73,14 +73,13 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             }
         }
     }
-
     private fun setListeners(viewModel: HomeViewModel) {
         with(binding) {
             detailImageButton.setOnClickListener { viewModel.navigateToDetails() }
         }
         homeAdapter.setOnItemClickListener(object : HomeAdapter.OnItemClickListener {
             override fun onItemClick(item: QuizItemUIModel) {
-                viewModel.navigateToQuiz()
+                viewModel.navigateToQuiz(item)
             }
         })
     }

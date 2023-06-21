@@ -11,7 +11,16 @@ class QuizItemDomainUIMapper : ModelMapper<QuizItemDomainModel, QuizItemUIModel>
             quizTitle = model.quizTitle,
             quizDescription = model.quizDescription,
             quizIcon = model.quizIcon,
-            questionsCount = model.questionsCount
+            questionsCount = model.questionsCount,
+            questions = model.questions.map { question ->
+                QuizItemUIModel.QuizQuestionUIModel(
+                    subjectId = question.subjectId,
+                    questionTitle = question.questionTitle,
+                    questionIndex = question.questionIndex,
+                    correctAnswer = question.correctAnswer,
+                    answers = question.answers
+                )
+            }
         )
     }
 }

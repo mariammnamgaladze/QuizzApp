@@ -33,7 +33,7 @@ class HomeViewModel(
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
-    fun getQuizQuestions() {
+    fun getQuiz() {
         viewModelScope {
             _isLoading.value = true
             getQuizUseCase.invoke()
@@ -85,7 +85,8 @@ class HomeViewModel(
         navigate(HomeFragmentDirections.actionHomeFragmentToStartFragment())
     }
 
-    fun navigateToQuiz() {
-        navigate(HomeFragmentDirections.actionHomeFragmentToQuestionsFragment())
-    }
+  fun navigateToQuiz(item:QuizItemUIModel) {
+      navigate(HomeFragmentDirections.actionHomeFragmentToQuestionsFragment(item))
+  }
+
 }

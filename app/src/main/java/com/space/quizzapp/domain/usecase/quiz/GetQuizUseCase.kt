@@ -7,6 +7,6 @@ import com.space.quizzapp.domain.usecase.base.BaseUseCase
 import kotlinx.coroutines.flow.Flow
 class GetQuizUseCase(private val quizRepository: QuizRepository) : BaseUseCase<Unit, Flow<ResponseHandler<List<QuizItemDomainModel>>>>() {
     override suspend fun invoke(params: Unit?): Flow<ResponseHandler<List<QuizItemDomainModel>>> {
-        return quizRepository.getQuizQuestions()
+        return quizRepository.getQuiz()
     }
 }
