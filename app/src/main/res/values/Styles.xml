@@ -14,7 +14,7 @@
 
     <style name="mediumMyriadGeo_Normal_blue">
         <item name="android:textSize">@dimen/dimen_16sp</item>
-        <item name="android:textColor">#537FE7</item>
+        <item name="android:textColor">@color/blue_secondary_default</item>
         <item name="android:font">@font/myriad_geo</item>
     </style>
 

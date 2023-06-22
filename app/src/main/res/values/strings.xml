@@ -1,17 +1,19 @@
 <resources>
     <string name="app_name">QuizzApp</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="input_hint">შეიყვანე სახელი</string>
     <string name="start_headline">ჩემი პირველი ქვიზი</string>
-    <string name="greeting_text">გამარჯობა,ირაკლი!</string>
+    <string name="greeting_text">გამარჯობა, %1$s</string>
     <string name="select_subject">აირჩიე საგანი</string>
     <string name="detail">დეტალურად</string>
     <string name="start_quiz">ქვიზის დაწყება</string>
     <string name="points">დაგროვილი ქულები</string>
     <string name="no_points">🧐 სამწუხაროდ,ქულები ჯერ არ გაქვს დაგროვილი.</string>
     <string name="dialog_question">ნამდვილად გსურს ქვიზის შეწყვეტა?</string>
+    <string name="dialog_log_out_question">ნამდვილად გსურს გასვლა?</string>
     <string name="close">დახურვა</string>
-    <string name="collected_points">შენ დააგროვე 14 ქულა</string>
+    <string name="collected_points">შენ დააგროვე  %1$d ქულა</string>
+    <string name="gpa">GPA-%1$.1f </string>
     <string name="congrats">გილოცავ!</string>
+    <string name="incorrect_input">"არავალიდური სახელი"!</string>
     <string name="next">შემდეგი</string>
 </resources>

@@ -6,16 +6,16 @@
     app:startDestination="@id/startFragment">
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.space.quizzapp.presentation.start.StartFragment"
+        android:name="com.space.quizzapp.presentation.authentication.fragment.AuthenticationFragment"
         android:label="fragment_start"
-        tools:layout="@layout/fragment_start" >
+        tools:layout="@layout/fragment_authentication" >
         <action
             android:id="@+id/action_startFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.space.quizzapp.presentation.home.HomeFragment"
+        android:name="com.space.quizzapp.presentation.home.fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.space.quizzapp.presentation.detail.DetailsFragment"
+        android:name="com.space.quizzapp.presentation.detail.fragment.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionsFragment"
-        android:name="com.space.quizzapp.presentation.question.QuestionsFragment"
+        android:name="com.space.quizzapp.presentation.question.fragment.QuestionsFragment"
         android:label="fragment_questions"
         tools:layout="@layout/fragment_questions" >
         <action

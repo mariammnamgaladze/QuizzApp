@@ -3,64 +3,66 @@ package com.space.quizzapp.presentation.custom_view
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.RectF
 import android.util.AttributeSet
+import androidx.core.content.ContextCompat
 import com.space.quizzapp.R
 
-class StartBackgroundCustomView(
+class StartBackgroundCustomView @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet
-) : BaseCustomView(context, attrs) {
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : BaseCustomView(context, attrs, defStyleAttr) {
 
-    // Paint object for drawing
-    override val paint = Paint().apply {
+    private val paint = Paint().apply {
+        isAntiAlias = true
         style = Paint.Style.FILL
     }
-    // X-coordinate of the center
-    private val centerX: Float
-        get() = width / 2f
-    // Radius of the circles
-    private val radius: Float
-        get() = width / 2f
 
-    // Draws the background of the custom view
-    override fun drawBackground(canvas: Canvas) {
-        val verticalOffset = (width / 2) - (height / 3)
-        val centerY1 = height / 3 + verticalOffset
-        val centerY2 = height * 2 / 3 - verticalOffset
+    private val blueColor = ContextCompat.getColor(context, R.color.blue_secondary_default)
+    private val blueFadeColor = ContextCompat.getColor(context, R.color.blue_secondary_light)
 
-        path.apply {
-            reset()
-            paint.color = context.getColor(R.color.blue_secondary_light)
-            addCircle(centerX, centerY1, radius, Path.Direction.CW)
-            addCircle(centerX, centerY2, radius, Path.Direction.CW)
-
-            moveTo(centerX, 0f)
-            lineTo(width.toFloat(), 0f)
-            lineTo(width.toFloat(), centerY2)
-            lineTo(centerX, height.toFloat())
-            lineTo(0f, height.toFloat())
-            lineTo(0f, centerY1)
-            lineTo(centerX, 0f)
-            close()
-            canvas.drawPath(this, paint)
-        }
-    }
-    // Draws the corner shape
-    private fun drawCornerShape(canvas: Canvas) {
-        path.apply {
-            reset()
-            paint.color = context.getColor(R.color.blue_secondary_default)
+    /**
+     * Draws a vector on the top.
+     */
+    private fun drawVector(canvas: Canvas, width: Float, height: Float) {
+        rectanglePath.apply {
+            paint.color = blueColor
             moveTo(0f, 0f)
-            lineTo(centerX, 0f)
-            lineTo(0f, height / 2f)
+            lineTo(width, 0f)
+            arcTo(
+                RectF(0f, 0f, width, height),
+                0f, 90f
+            )
+            lineTo(0f, height)
             close()
-            canvas.drawPath(this, paint)
         }
+        canvas.drawPath(rectanglePath, paint)
     }
-    // Binds the data and performs drawing operations on the canvas
-    override fun onBind(canvas: Canvas) {
-        drawCornerShape(canvas)
-        drawBackground(canvas)
+
+    /**
+     * Draws a shade for vector on the top.
+     */
+    private fun drawShade(canvas: Canvas, width: Float, height: Float) {
+        shadePath.apply {
+            paint.color = blueFadeColor
+            moveTo(width, 0f)
+            arcTo(
+                RectF(0f, 0f, width, height),
+                0f, 90f
+            )
+            lineTo(0f, height)
+            arcTo(
+                RectF(0f, 0f, width, height),
+                180f, 90f
+            )
+            close()
+        }
+        canvas.drawPath(shadePath, paint)
+    }
+
+    override fun startDrawing(canvas: Canvas, width: Float, height: Float) {
+        drawVector(canvas, width, height)
+        drawShade(canvas, width, height)
     }
 }

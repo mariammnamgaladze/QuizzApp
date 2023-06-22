@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.question.QuestionsFragment">
+    tools:context=".presentation.question.fragment.QuestionsFragment">
 
     <com.space.quizzapp.presentation.custom_view.QuizBackgroundCustomView
         android:id="@+id/questionBackgroundCustomView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintHeight_percent="0.3"
-        android:background="@drawable/rectange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +64,8 @@
 
     <com.google.android.material.button.MaterialButton
         style="@style/mediumMyriadGeo_Normal_white"
-        android:layout_width="@dimen/dimen_343dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/dimen_20dp"
         android:layout_height="@dimen/dimen_60dp"
         app:cornerRadius="@dimen/dimen_15dp"
         android:backgroundTint="@color/yellow_primary"

@@ -1,4 +1,4 @@
-package com.space.quizzapp.presentation.dialog
+package com.space.quizzapp.presentation.dialog.fragment
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import com.space.quizzapp.databinding.DialogLayoutBinding
 
-class MyDialogFragment : DialogFragment() {
+class QuizzDialogFragment : DialogFragment() {
     private var _binding: DialogLayoutBinding? = null
     private val binding get() = _binding!!
     private var positiveButtonAction: (() -> Unit)? = null
@@ -65,8 +65,8 @@ class MyDialogFragment : DialogFragment() {
             negativeButtonBackground: Drawable,
             positiveButtonAction: () -> Unit,
             negativeButtonAction: () -> Unit
-        ): MyDialogFragment {
-            val fragment = MyDialogFragment()
+        ): QuizzDialogFragment {
+            val fragment = QuizzDialogFragment()
             fragment.commonTextViewText = commonTextViewText
             fragment.positiveButtonBackground = positiveButtonBackground
             fragment.negativeButtonBackground = negativeButtonBackground
@@ -81,8 +81,8 @@ class MyDialogFragment : DialogFragment() {
             collectedPointsText: String,
             closeText: String,
             buttonAction: () -> Unit
-        ): MyDialogFragment {
-            val fragment = MyDialogFragment()
+        ): QuizzDialogFragment {
+            val fragment = QuizzDialogFragment()
             fragment.commonTextViewText = commonTextViewText
             fragment.imageView = imageView
             fragment.collectedPointsText = collectedPointsText
