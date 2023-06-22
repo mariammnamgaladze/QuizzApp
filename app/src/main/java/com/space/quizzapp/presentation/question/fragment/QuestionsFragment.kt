@@ -10,25 +10,28 @@ import com.space.quizzapp.presentation.question.viewmodel.QuestionsViewModel
 import kotlin.reflect.KClass
 
 class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
+
     override val viewModelClass: KClass<QuestionsViewModel>
         get() = QuestionsViewModel::class
+
     private val binding by viewBinding(FragmentQuestionsBinding::bind)
+
     override val layout: Int
         get() = R.layout.fragment_questions
+
     private val args: QuestionsFragmentArgs by navArgs()
 
-
-    override fun onBind(viewModel: QuestionsViewModel) {
+    override fun onBind() {
         navigateToHome()
         val quiz = args.item
         binding.subjectTextView.text = quiz.quizTitle
         viewModel.quizModel = quiz
-        observer(viewModel)
+        observer()
         viewModel.getQuiz()
-        setListeners(viewModel)
+        setListeners()
     }
 
-    private fun observer(viewModel: QuestionsViewModel) {
+    private fun observer() {
         lifecycleScope {
             viewModel.quizItem.collect {
                 binding.materialButton.isEnabled = false
@@ -38,7 +41,7 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
         }
     }
 
-    private fun setListeners(viewModel: QuestionsViewModel) {
+    private fun setListeners() {
         binding.materialButton.setOnClickListener {
             viewModel.getQuiz()
         }
@@ -47,7 +50,6 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
             binding.materialButton.isEnabled = true
         }
     }
-
 
     private fun navigateToHome() {
         binding.exitImageView.setOnClickListener {

@@ -11,11 +11,13 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
 
     override val viewModelClass: KClass<DetailsViewModel>
         get() = DetailsViewModel::class
+
     private val binding by viewBinding(FragmentDetailsBinding::bind)
+
     override val layout: Int
         get() = R.layout.fragment_details
 
-    override fun onBind(viewModel: DetailsViewModel) {
+    override fun onBind() {
         setListeners()
     }
 
