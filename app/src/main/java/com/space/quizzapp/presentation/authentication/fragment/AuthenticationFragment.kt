@@ -19,7 +19,7 @@ class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
         get() = AuthenticationViewModel::class
     override val layout: Int = R.layout.fragment_authentication
 
-    override fun onBind(viewModel: AuthenticationViewModel) {
+    override fun onBind() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.errorMessage.flowWithLifecycle(
                 viewLifecycleOwner.lifecycle,
@@ -28,10 +28,10 @@ class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
                 requireContext().showToast(getString(R.string.incorrect_input))
             }
         }
-        setListeners(viewModel)
+        setListeners()
     }
 
-    private fun setListeners(viewModel: AuthenticationViewModel) {
+    private fun setListeners() {
         binding.startButton.setOnClickListener {
             val username = binding.usernameEditText.text.toString()
             viewModel.checkUsernameAvailability(username)

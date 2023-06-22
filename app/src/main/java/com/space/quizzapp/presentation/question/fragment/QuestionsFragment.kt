@@ -13,17 +13,8 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
     override val layout: Int
         get() = R.layout.fragment_questions
 
-    override fun onBind(viewModel: QuestionsViewModel) {
-        setListeners()
+    override fun onBind() {
+
     }
 
-    private fun setListeners() {
-        binding.exitImageView.setOnClickListener {
-           // navigateToHome()
-        }
-    }
-
-  /*  private fun navigateToHome() {
-        navigateTo(R.id.action_questionsFragment_to_homeFragment)
-    }*/
 }

@@ -15,20 +15,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
     override val layout: Int
         get() = R.layout.fragment_details
 
-    override fun onBind(viewModel: DetailsViewModel) {
-        setListeners()
+    override fun onBind() {
     }
-
-    private fun setListeners() {
-        binding.backImageButton.setOnClickListener {
-        //    navigateToHome()
-        }
-    }
-
-   /* private fun navigateToHome() {
-        navigateTo(
-            R.id.action_detailsFragment_to_homeFragment
-        )
-    }*/
 
 }

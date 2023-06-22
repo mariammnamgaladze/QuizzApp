@@ -18,13 +18,13 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     override val layout: Int
         get() = R.layout.fragment_home
 
-    override fun onBind(viewModel: HomeViewModel) {
-        showUserInfo(viewModel)
+    override fun onBind() {
+        showUserInfo()
         setListeners()
-        dialogListener(viewModel)
+        dialogListener()
     }
 
-    private fun showUserInfo(viewModel: HomeViewModel) {
+    private fun showUserInfo() {
         viewModel.getActiveUsernames()
         lifecycleScope {
             viewModel.activeUsernames.collect {
@@ -41,7 +41,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
     }
 
-    private fun dialogListener(viewModel: HomeViewModel) {
+    private fun dialogListener() {
         binding.logOutImageView.setOnClickListener {
             QuizzDialogFragment.twoButtonState(
                 requireContext().getString(R.string.dialog_log_out_question),
