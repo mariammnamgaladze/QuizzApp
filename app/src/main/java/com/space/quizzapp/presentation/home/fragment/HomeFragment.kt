@@ -1,7 +1,6 @@
 package com.space.quizzapp.presentation.home.fragment
 
 import HomeAdapter
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.space.quizzapp.R
@@ -41,16 +40,13 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             layoutManager = LinearLayoutManager(requireContext())
         }
         lifecycleScope {
-            Log.d("HomeFragment", "Before getting quiz questions")
             viewModel.getQuiz()
-            Log.d("HomeFragment", "After getting quiz questions")
         }
     }
 
     private fun observer(viewModel: HomeViewModel) {
         lifecycleScope {
             viewModel.quizItems.collect {
-                Log.d("HomeFragment", "Received quiz items: $it")
                 homeAdapter.submitList(it)
             }
         }

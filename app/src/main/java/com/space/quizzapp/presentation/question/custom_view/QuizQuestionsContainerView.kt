@@ -11,14 +11,14 @@ class QuizQuestionsContainerView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    private val stateViews: MutableList<StateView> = mutableListOf()
-    private var onStateViewClickListener: ((StateView) -> Unit)? = null
+    private val answersStateViews: MutableList<AnswersStateView> = mutableListOf()
+    private var onStateViewClickListener: ((Boolean) -> Unit)? = null
 
     init {
         orientation = VERTICAL
     }
 
-    fun setOnStateViewClickListener(listener: (StateView) -> Unit) {
+    fun setOnStateViewClickListener(listener: (Boolean) -> Unit) {
         onStateViewClickListener = listener
     }
 
@@ -29,25 +29,25 @@ class QuizQuestionsContainerView @JvmOverloads constructor(
         var isAnswerClicked = false
 
         quizQuestions.answers.forEach { answer ->
-            StateView(context).apply {
+            AnswersStateView(context).apply {
                 // Set the initial state
-                setState(StateView.State.Default)
+                setState(AnswersStateView.State.Default)
                 setText(answer)
                 setOnClickListener {
                     if (!isAnswerClicked) {
                         // Allow click only if no answer has been clicked yet
-                        setState(if (answer == correctAnswer) StateView.State.Correct(true) else StateView.State.Wrong)
+                        setState(if (answer == correctAnswer) AnswersStateView.State.Correct(true) else AnswersStateView.State.Wrong)
                         if (answer != correctAnswer) {
                             // Find the state view representing the correct answer
-                            val correctStateView = stateViews.find { it.getText() == correctAnswer }
-                            correctStateView?.setState(StateView.State.Correct(false))
+                            val correctStateView = answersStateViews.find { it.getText() == correctAnswer }
+                            correctStateView?.setState(AnswersStateView.State.Correct(false))
                         }
-                        onStateViewClickListener?.invoke(this)
+                        onStateViewClickListener?.invoke(answer == correctAnswer)
                         isAnswerClicked = true
                     }
                 }
             }.also {
-                stateViews.add(it)
+                answersStateViews.add(it)
                 addView(it)
             }
         }
@@ -55,6 +55,6 @@ class QuizQuestionsContainerView @JvmOverloads constructor(
 
     private fun clearAnswers() {
         removeAllViews()
-        stateViews.clear()
+        answersStateViews.clear()
     }
 }

@@ -13,6 +13,11 @@ class QuestionsViewModel() : BaseViewModel() {
 
     private var currentQuestionIndex = 0
     lateinit var quizModel: QuizItemUIModel
+    private var correctAnswerCount = 0
+
+    fun updateCorrectPoints(isAnswerCorrect: Boolean) {
+        if (isAnswerCorrect) correctAnswerCount++
+    }
 
     fun getQuiz() {
         if (currentQuestionIndex < quizModel.questions.size) {

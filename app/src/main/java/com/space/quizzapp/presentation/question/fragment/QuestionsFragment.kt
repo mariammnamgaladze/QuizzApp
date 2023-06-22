@@ -42,7 +42,8 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
         binding.materialButton.setOnClickListener {
             viewModel.getQuiz()
         }
-        binding.quizContainerView.setOnStateViewClickListener { stateViewClicked ->
+        binding.quizContainerView.setOnStateViewClickListener {
+            viewModel.updateCorrectPoints(it)
             binding.materialButton.isEnabled = true
         }
     }
