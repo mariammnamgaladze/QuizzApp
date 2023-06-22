@@ -25,28 +25,34 @@ class QuizQuestionsContainerView @JvmOverloads constructor(
     fun setAnswersList(quizQuestions: QuizItemUIModel.QuizQuestionUIModel) {
         clearAnswers()
         val correctAnswer = quizQuestions.correctAnswer
-        var isAnswerClicked = false // Variable to track if any answer has been clicked
+        // Variable to track if any answer has been clicked
+        var isAnswerClicked = false
 
         quizQuestions.answers.forEach { answer ->
-            val stateView = StateView(context)
-            stateView.setState(StateView.State.DEFAULT) // Set the initial state
-            stateView.setText(answer)
-            stateView.setOnClickListener {
-                if (!isAnswerClicked) { // Allow click only if no answer has been clicked yet
-                    stateView.setState(if (answer == correctAnswer) StateView.State.CORRECT else StateView.State.WRONG)
-                    if (answer != correctAnswer) {
-                        // Find the state view representing the correct answer
-                        val correctStateView = stateViews.find { it.getText() == correctAnswer }
-                        correctStateView?.setState(StateView.State.UNCLICKEDCORRECT)
+            StateView(context).apply {
+                // Set the initial state
+                setState(StateView.State.Default)
+                setText(answer)
+                setOnClickListener {
+                    if (!isAnswerClicked) {
+                        // Allow click only if no answer has been clicked yet
+                        setState(if (answer == correctAnswer) StateView.State.Correct(true) else StateView.State.Wrong)
+                        if (answer != correctAnswer) {
+                            // Find the state view representing the correct answer
+                            val correctStateView = stateViews.find { it.getText() == correctAnswer }
+                            correctStateView?.setState(StateView.State.Correct(false))
+                        }
+                        onStateViewClickListener?.invoke(this)
+                        isAnswerClicked = true
                     }
-                    onStateViewClickListener?.invoke(stateView)
-                    isAnswerClicked = true
                 }
+            }.also {
+                stateViews.add(it)
+                addView(it)
             }
-            stateViews.add(stateView)
-            addView(stateView)
         }
     }
+
     private fun clearAnswers() {
         removeAllViews()
         stateViews.clear()

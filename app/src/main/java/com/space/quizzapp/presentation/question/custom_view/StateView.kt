@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.space.quizzapp.R
 import com.space.quizzapp.databinding.AnswersLayoutItemBinding
@@ -26,15 +27,7 @@ class StateView @JvmOverloads constructor(
         )
     }
 
-    enum class State(val color: Int) {
-        DEFAULT(R.color.neutral_03_light_grey),
-        WRONG(R.color.wrong),
-        CORRECT(R.color.success),
-        UNCLICKEDCORRECT(R.color.success)
-    }
-
-    private var currentState: State = State.DEFAULT
-
+    private var currentState: State = State.Default
 
     fun setText(text: String) {
         binding.questionTextView.text = text
@@ -51,12 +44,13 @@ class StateView @JvmOverloads constructor(
 
     private fun setAnswerState(state: State) {
         val textColor =
-            if (state == State.CORRECT || state == State.WRONG || state == State.UNCLICKEDCORRECT) Color.WHITE else Color.BLACK
-        val visibility = if (state == State.CORRECT) VISIBLE else INVISIBLE
+            if (state is State.Correct || state is State.Wrong) Color.WHITE else Color.BLACK
+        val iconVisibility =
+            if (state is State.Correct && state.isAnswerCorrect) VISIBLE else INVISIBLE
         with(binding) {
             questionTextView.setTextColor(textColor)
             pointsTextView.setTextColor(textColor)
-            pointsTextView.visibility = visibility
+            pointsTextView.visibility = iconVisibility
         }
     }
 
@@ -66,6 +60,12 @@ class StateView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+    }
+
+    sealed class State(@ColorRes val color: Int) {
+        object Default : State(R.color.neutral_03_light_grey)
+        object Wrong : State(R.color.wrong)
+        data class Correct(val isAnswerCorrect: Boolean) : State(R.color.success)
     }
 }
 

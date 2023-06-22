@@ -31,6 +31,7 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
     private fun observer(viewModel: QuestionsViewModel) {
         lifecycleScope {
             viewModel.quizItem.collect {
+                binding.materialButton.isEnabled = false
                 binding.questionsTextView.text = it.questionTitle
                 binding.quizContainerView.setAnswersList(it)
             }
@@ -38,7 +39,6 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
     }
 
     private fun setListeners(viewModel: QuestionsViewModel) {
-        binding.materialButton.isEnabled = false
         binding.materialButton.setOnClickListener {
             viewModel.getQuiz()
         }
