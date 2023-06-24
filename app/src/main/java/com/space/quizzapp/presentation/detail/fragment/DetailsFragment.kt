@@ -2,6 +2,7 @@ package com.space.quizzapp.presentation.detail.fragment
 
 import android.view.View
 import com.space.quizzapp.R
+import com.space.quizzapp.common.extensions.collectAsync
 import com.space.quizzapp.common.extensions.lifecycleScope
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentDetailsBinding
@@ -39,14 +40,12 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
     }
 
     private fun observer() {
-        lifecycleScope {
-            viewModel.subjectsItem.collect {
-                if (it.isEmpty()) {
-                    binding.noPointTextView.visibility = View.VISIBLE
-                } else {
-                    detailsAdapter.submitList(it)
-                    binding.noPointTextView.visibility = View.INVISIBLE
-                }
+        collectAsync(viewModel.subjectsItem) {
+            if (it.isEmpty()) {
+                binding.noPointTextView.visibility = View.VISIBLE
+            } else {
+                detailsAdapter.submitList(it)
+                binding.noPointTextView.visibility = View.INVISIBLE
             }
         }
     }

@@ -3,6 +3,7 @@ package com.space.quizzapp.presentation.home.fragment
 import HomeAdapter
 import android.view.View
 import com.space.quizzapp.R
+import com.space.quizzapp.common.extensions.collectAsync
 import com.space.quizzapp.common.extensions.lifecycleScope
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentHomeBinding
@@ -43,30 +44,24 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     }
 
     private fun observer() {
-        lifecycleScope {
-            viewModel.quizItems.collect {
-                homeAdapter.submitList(it)
-            }
+        collectAsync(viewModel.quizItems) {
+            homeAdapter.submitList(it)
         }
-        lifecycleScope {
-            viewModel.isLoading.collect { isLoading ->
-                binding.progressBar.visibility = if (isLoading) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
+
+        collectAsync(viewModel.isLoading) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) {
+                View.VISIBLE
+            } else {
+                View.GONE
             }
         }
     }
 
     private fun showUserInfo() {
         viewModel.getActiveUsernames()
-        lifecycleScope {
-            viewModel.activeUsernames.collect {
-                binding.greetingTextView.text = getString(R.string.greeting_text, it?.username)
-                binding.gpaTV.text = getString(R.string.gpa, it?.gpa)
-
-            }
+        collectAsync(viewModel.activeUsernames) {
+            binding.greetingTextView.text = getString(R.string.greeting_text, it?.username)
+            binding.gpaTV.text = getString(R.string.gpa, it?.gpa)
         }
     }
 

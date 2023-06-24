@@ -2,7 +2,7 @@ package com.space.quizzapp.presentation.question.fragment
 
 import androidx.navigation.fragment.navArgs
 import com.space.quizzapp.R
-import com.space.quizzapp.common.extensions.lifecycleScope
+import com.space.quizzapp.common.extensions.collectAsync
 import com.space.quizzapp.common.extensions.showToast
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentQuestionsBinding
@@ -29,24 +29,20 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
     }
 
     private fun observer() {
-        lifecycleScope {
-            viewModel.quizItem.collect {
-                it?.let {
-                    binding.materialButton.isEnabled = false
-                    binding.questionsTextView.text = it.questionTitle
-                    binding.quizContainerView.setAnswersList(it)
-                }
 
-            }
-        }
-        lifecycleScope {
-            viewModel.finalScore.collect { point ->
-                point?.let { point ->
-                    requireContext().showToast(point.toString())
-                }
+        collectAsync(viewModel.quizItem) {
+            it?.let {
+                binding.materialButton.isEnabled = false
+                binding.questionsTextView.text = it.questionTitle
+                binding.quizContainerView.setAnswersList(it)
             }
         }
 
+        collectAsync(viewModel.finalScore) { point ->
+            point?.let { point ->
+                requireContext().showToast(point.toString())
+            }
+        }
     }
 
     private fun setListeners() {
@@ -61,7 +57,4 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
             viewModel.navigateToHome()
         }
     }
-
-
-
 }

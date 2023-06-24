@@ -4,13 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.space.quizzapp.data.local.entity.UserEntityModel
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
-    @Query("SELECT * FROM user_info WHERE username = :username")
-    fun observeUser(username: String): Flow<UserEntityModel>
-
     @Insert
     suspend fun insertUser(user: UserEntityModel)
 

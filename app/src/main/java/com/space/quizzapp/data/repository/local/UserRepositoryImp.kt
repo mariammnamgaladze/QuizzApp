@@ -5,8 +5,6 @@ import com.space.quizzapp.data.local.entity.mapper.UserDomainToEntityMapper
 import com.space.quizzapp.domain.model.local.UserDomainModel
 import com.space.quizzapp.domain.model.local.mapper.UserEntityToDomainMapper
 import com.space.quizzapp.domain.repository.local.UserRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 class UserRepositoryImp(
     private val userDao: UserDao,
@@ -21,12 +19,6 @@ class UserRepositoryImp(
 
     override suspend fun isUsernameAvailable(username: String): Boolean {
         return userDao.getUser(username) != null
-    }
-
-    override suspend fun observeUser(username: String): Flow<UserDomainModel> {
-        return userDao.observeUser(username).map {
-            userEntityToDomainMapper(it)
-        }
     }
 
     override suspend fun getCurrentUser(isActive: Boolean): UserDomainModel {
