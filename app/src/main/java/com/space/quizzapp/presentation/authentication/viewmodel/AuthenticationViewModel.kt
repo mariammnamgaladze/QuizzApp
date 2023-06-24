@@ -6,7 +6,7 @@ import com.space.quizzapp.data.mapper.toDomainModel
 import com.space.quizzapp.domain.usecase.user.save_user.SaveUserUseCase
 import com.space.quizzapp.presentation.authentication.fragment.AuthenticationFragmentDirections
 import com.space.quizzapp.presentation.base.viewmodel.BaseViewModel
-import com.space.quizzapp.presentation.model.UserUIModel
+import com.space.quizzapp.presentation.model.local.UserUIModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 

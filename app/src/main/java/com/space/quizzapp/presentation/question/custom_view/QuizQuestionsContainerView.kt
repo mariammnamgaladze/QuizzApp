@@ -3,7 +3,7 @@ package com.space.quizzapp.presentation.question.custom_view
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
-import com.space.quizzapp.presentation.model.QuizItemUIModel
+import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
 
 class QuizQuestionsContainerView @JvmOverloads constructor(
     context: Context,

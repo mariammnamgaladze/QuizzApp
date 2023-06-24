@@ -3,7 +3,7 @@ package com.space.quizzapp.data.repository.local
 import com.space.quizzapp.data.local.dao.UserDao
 import com.space.quizzapp.data.mapper.toDomainModel
 import com.space.quizzapp.data.mapper.toEntity
-import com.space.quizzapp.domain.model.UserDomainModel
+import com.space.quizzapp.domain.model.local.UserDomainModel
 import com.space.quizzapp.domain.repository.local.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

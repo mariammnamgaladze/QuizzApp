@@ -1,4 +1,4 @@
-package com.space.quizzapp.presentation.model
+package com.space.quizzapp.presentation.model.local
 
 data class UserUIModel(
     val id: Int? = null,

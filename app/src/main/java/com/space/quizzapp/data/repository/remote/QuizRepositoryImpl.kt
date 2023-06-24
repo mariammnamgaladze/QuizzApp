@@ -1,9 +1,9 @@
 package com.space.quizzapp.data.repository.remote
 
 import com.space.quizzapp.common.resource.ResponseHandler
-import com.space.quizzapp.domain.mapper.QuizItemDTODomainMapper
+import com.space.quizzapp.domain.model.remote.mapper.QuizItemDTODomainMapper
 import com.space.quizzapp.data.remote.network.QuizApiService
-import com.space.quizzapp.domain.model.QuizItemDomainModel
+import com.space.quizzapp.domain.model.remote.QuizItemDomainModel
 import com.space.quizzapp.domain.repository.remote.QuizRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

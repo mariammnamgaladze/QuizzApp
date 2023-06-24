@@ -1,15 +1,16 @@
 package com.space.quizzapp.presentation.home.viewmodel
 
+import androidx.navigation.NavDirections
 import com.space.quizzapp.common.extensions.viewModelScope
 import com.space.quizzapp.common.mapper.ModelMapper
 import com.space.quizzapp.common.resource.ResponseHandler
-import com.space.quizzapp.domain.model.QuizItemDomainModel
+import com.space.quizzapp.domain.model.remote.QuizItemDomainModel
 import com.space.quizzapp.domain.usecase.quiz.GetQuizUseCase
 import com.space.quizzapp.domain.usecase.user.active_user.GetCurrentUserUseCase
 import com.space.quizzapp.domain.usecase.user.update_user_status.UpdateUserActiveStatusUseCase
 import com.space.quizzapp.presentation.base.viewmodel.BaseViewModel
 import com.space.quizzapp.presentation.home.fragment.HomeFragmentDirections
-import com.space.quizzapp.presentation.model.QuizItemUIModel
+import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
 import kotlinx.coroutines.flow.*
 
 class HomeViewModel(
@@ -19,8 +20,8 @@ class HomeViewModel(
     private val quizItemDomainUIMapper: ModelMapper<QuizItemDomainModel, QuizItemUIModel>
 ) : BaseViewModel() {
 
-    private val _activeUsernames = MutableSharedFlow<String>()
-    val activeUsernames = _activeUsernames.asSharedFlow()
+    private val _activeUsernames = MutableStateFlow<String?>(null)
+    val activeUsernames = _activeUsernames.asStateFlow()
 
     private var activeUsername: String = ""
 
@@ -77,16 +78,12 @@ class HomeViewModel(
         }
     }
 
-    fun navigateToDetails() {
-        navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment())
+    fun navigateTo(destination: NavDirections) {
+        navigate(destination)
     }
 
-    fun navigateToStart() {
-        navigate(HomeFragmentDirections.actionHomeFragmentToStartFragment())
+    fun navigateToQuiz(item: QuizItemUIModel) {
+        navigate(HomeFragmentDirections.actionHomeFragmentToQuestionsFragment(item))
     }
-
-  fun navigateToQuiz(item:QuizItemUIModel) {
-      navigate(HomeFragmentDirections.actionHomeFragmentToQuestionsFragment(item))
-  }
 
 }

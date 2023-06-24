@@ -5,7 +5,7 @@ import com.space.quizzapp.common.extensions.setImage
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.SubjectLayoutItemBinding
 import com.space.quizzapp.presentation.home.adapter.DiffCallback
-import com.space.quizzapp.presentation.model.QuizItemUIModel
+import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
 
 class HomeAdapter :
     ListAdapter<QuizItemUIModel, HomeAdapter.QuizSubjectViewHolder>(DiffCallback()) {

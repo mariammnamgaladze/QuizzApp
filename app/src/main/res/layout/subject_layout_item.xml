@@ -51,16 +51,20 @@
             app:layout_constraintStart_toEndOf="@+id/SubjectImageView"
             app:layout_constraintTop_toBottomOf="@+id/subjectNameTextView" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dimen_53dp"
+            android:layout_height="@dimen/dimen_53dp"
             android:layout_margin="@dimen/dimen_20dp"
-            android:background="@android:color/transparent"
+            android:background="@drawable/ic_circle"
+            app:backgroundTint="@color/yellow_primary"
+            android:tint="@color/yellow_primary"
+            tools:text ="0"
+            app:icon="@drawable/ic_next"
+            android:textSize="@dimen/dimen_16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_next"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

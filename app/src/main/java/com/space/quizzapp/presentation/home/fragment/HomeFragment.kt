@@ -10,7 +10,7 @@ import com.space.quizzapp.databinding.FragmentHomeBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.dialog.fragment.QuizzDialogFragment
 import com.space.quizzapp.presentation.home.viewmodel.HomeViewModel
-import com.space.quizzapp.presentation.model.QuizItemUIModel
+import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
 import kotlin.reflect.KClass
 
 class HomeFragment : BaseFragment<HomeViewModel>() {
@@ -71,7 +71,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     }
     private fun setListeners(viewModel: HomeViewModel) {
         with(binding) {
-            detailImageButton.setOnClickListener { viewModel.navigateToDetails() }
+            detailImageButton.setOnClickListener { viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailsFragment()) }
         }
         homeAdapter.setOnItemClickListener(object : HomeAdapter.OnItemClickListener {
             override fun onItemClick(item: QuizItemUIModel) {
@@ -88,7 +88,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                 requireContext().getDrawable(R.drawable.bkg_no_button)!!,
                 positiveButtonAction = {
                     viewModel.updateActiveStatus(isActive = false)
-                    viewModel.navigateToStart()
+                    viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToStartFragment())
                 }
             ) {}.show(parentFragmentManager, "")
         }

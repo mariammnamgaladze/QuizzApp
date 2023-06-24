@@ -1,4 +1,4 @@
-package com.space.quizzapp.presentation.model
+package com.space.quizzapp.presentation.model.remote
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

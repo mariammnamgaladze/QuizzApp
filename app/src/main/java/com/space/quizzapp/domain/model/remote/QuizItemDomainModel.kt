@@ -1,4 +1,4 @@
-package com.space.quizzapp.domain.model
+package com.space.quizzapp.domain.model.remote
 
 
 data class QuizItemDomainModel(

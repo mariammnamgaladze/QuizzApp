@@ -3,6 +3,7 @@ package com.space.quizzapp.presentation.question.fragment
 import androidx.navigation.fragment.navArgs
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.lifecycleScope
+import com.space.quizzapp.common.extensions.showToast
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentQuestionsBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
@@ -19,7 +20,6 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
 
 
     override fun onBind(viewModel: QuestionsViewModel) {
-        navigateToHome()
         val quiz = args.item
         binding.subjectTextView.text = quiz.quizTitle
         viewModel.quizModel = quiz
@@ -31,11 +31,22 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
     private fun observer(viewModel: QuestionsViewModel) {
         lifecycleScope {
             viewModel.quizItem.collect {
-                binding.materialButton.isEnabled = false
-                binding.questionsTextView.text = it.questionTitle
-                binding.quizContainerView.setAnswersList(it)
+                it?.let {
+                    binding.materialButton.isEnabled = false
+                    binding.questionsTextView.text = it.questionTitle
+                    binding.quizContainerView.setAnswersList(it)
+                }
+
             }
         }
+        lifecycleScope {
+            viewModel.finalScore.collect { point ->
+                point?.let { point ->
+                    requireContext().showToast(point.toString())
+                }
+            }
+        }
+
     }
 
     private fun setListeners(viewModel: QuestionsViewModel) {
@@ -46,13 +57,11 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
             viewModel.updateCorrectPoints(it)
             binding.materialButton.isEnabled = true
         }
-    }
-
-
-    private fun navigateToHome() {
         binding.exitImageView.setOnClickListener {
-            navigateTo(R.id.action_questionsFragment_to_homeFragment)
+            viewModel.navigateToHome()
         }
     }
+
+
 
 }

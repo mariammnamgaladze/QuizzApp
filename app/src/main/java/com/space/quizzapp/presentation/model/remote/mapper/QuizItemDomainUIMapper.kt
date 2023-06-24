@@ -1,8 +1,8 @@
-package com.space.quizzapp.presentation.model.mapper
+package com.space.quizzapp.presentation.model.remote.mapper
 
 import com.space.quizzapp.common.mapper.ModelMapper
-import com.space.quizzapp.domain.model.QuizItemDomainModel
-import com.space.quizzapp.presentation.model.QuizItemUIModel
+import com.space.quizzapp.domain.model.remote.QuizItemDomainModel
+import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
 
 class QuizItemDomainUIMapper : ModelMapper<QuizItemDomainModel, QuizItemUIModel> {
     override fun invoke(model: QuizItemDomainModel): QuizItemUIModel {
