@@ -10,4 +10,5 @@ interface UserRepository {
     suspend fun observeUser(username: String): Flow<UserDomainModel>
     suspend fun getCurrentUser(isActive: Boolean): UserDomainModel
     suspend fun updateUserActiveStatus(username: String, isActive: Boolean)
+    suspend fun updateGpa(username: String, gpa: Float)
 }

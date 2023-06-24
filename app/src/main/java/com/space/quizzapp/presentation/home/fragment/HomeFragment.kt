@@ -65,10 +65,13 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         viewModel.getActiveUsernames()
         lifecycleScope {
             viewModel.activeUsernames.collect {
-                binding.greetingTextView.text = getString(R.string.greeting_text, it)
+                binding.greetingTextView.text = getString(R.string.greeting_text, it?.username)
+                binding.gpaTV.text = getString(R.string.gpa, it?.gpa)
+
             }
         }
     }
+
     private fun setListeners(viewModel: HomeViewModel) {
         with(binding) {
             detailImageButton.setOnClickListener { viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailsFragment()) }

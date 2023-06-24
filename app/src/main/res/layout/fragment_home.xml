@@ -46,7 +46,8 @@
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <TextView
-                style="@style/mediumMyriadGeo_Normal_white"
+                android:id="@+id/gpaTV"
+                style="@style/mediumMyriadGeo_Normal"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dimen_35dp"
                 android:layout_marginStart="@dimen/dimen_16dp"

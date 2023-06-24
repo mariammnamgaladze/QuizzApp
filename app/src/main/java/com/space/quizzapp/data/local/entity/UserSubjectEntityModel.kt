@@ -6,10 +6,11 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "points_info")
 data class UserSubjectEntityModel (
     @PrimaryKey(autoGenerate = true)
-    val id:Int,
+    val id: Int,
     val quizDescription: String,
     val quizIcon: String,
     val quizTitle: String,
-    val collectedPoints:Int,
-    val userName:String
+    val collectedPoints: Int,
+    val userName: String,
+    val questionsCount: Int,
 )

@@ -10,6 +10,8 @@ import com.space.quizzapp.domain.usecase.user.active_user.GetCurrentUserUseCase
 import com.space.quizzapp.domain.usecase.user.update_user_status.UpdateUserActiveStatusUseCase
 import com.space.quizzapp.presentation.base.viewmodel.BaseViewModel
 import com.space.quizzapp.presentation.home.fragment.HomeFragmentDirections
+import com.space.quizzapp.presentation.model.local.UserUIModel
+import com.space.quizzapp.presentation.model.local.mapper.UserDomainToUIMapper
 import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
 import kotlinx.coroutines.flow.*
 
@@ -17,10 +19,11 @@ class HomeViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val updateUserActiveStatusUseCase: UpdateUserActiveStatusUseCase,
     private val getQuizUseCase: GetQuizUseCase,
-    private val quizItemDomainUIMapper: ModelMapper<QuizItemDomainModel, QuizItemUIModel>
+    private val quizItemDomainUIMapper: ModelMapper<QuizItemDomainModel, QuizItemUIModel>,
+    private val userDomainToUIMapper: UserDomainToUIMapper
 ) : BaseViewModel() {
 
-    private val _activeUsernames = MutableStateFlow<String?>(null)
+    private val _activeUsernames = MutableStateFlow<UserUIModel?>(null)
     val activeUsernames = _activeUsernames.asStateFlow()
 
     private var activeUsername: String = ""
@@ -67,8 +70,7 @@ class HomeViewModel(
     fun getActiveUsernames() {
         viewModelScope {
             val activeUser = getCurrentUserUseCase.invoke(true)
-            activeUsername = activeUser.username
-            _activeUsernames.emit(activeUsername)
+            _activeUsernames.emit(userDomainToUIMapper(activeUser))
         }
     }
 

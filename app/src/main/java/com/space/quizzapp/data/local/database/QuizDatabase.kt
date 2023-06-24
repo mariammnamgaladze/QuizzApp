@@ -17,6 +17,6 @@ abstract class QuizDatabase : RoomDatabase() {
     abstract fun userSubjectDao(): UserSubjectDao
 
     companion object {
-        const val DB_VERSION = 6
+        const val DB_VERSION = 1
     }
 }

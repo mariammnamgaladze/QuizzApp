@@ -8,12 +8,13 @@ class UserSubjectEntityToDomainMapper :
     ModelMapper<UserSubjectEntityModel, UserSubjectDomainModel> {
     override fun invoke(model: UserSubjectEntityModel): UserSubjectDomainModel {
         return UserSubjectDomainModel(
-            id =model.id,
+            id = model.id,
             quizDescription = model.quizDescription,
             quizIcon = model.quizIcon,
             quizTitle = model.quizTitle,
             collectedPoints = model.collectedPoints,
-            userName = model.userName
+            userName = model.userName,
+            questionsCount = model.questionsCount
         )
     }
 }

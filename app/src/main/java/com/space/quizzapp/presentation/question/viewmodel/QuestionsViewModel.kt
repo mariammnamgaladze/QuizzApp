@@ -4,7 +4,6 @@ import com.space.quizzapp.common.extensions.viewModelScope
 import com.space.quizzapp.domain.usecase.subject.InsertUserSubjectUseCase
 import com.space.quizzapp.domain.usecase.user.active_user.GetCurrentUserUseCase
 import com.space.quizzapp.presentation.base.viewmodel.BaseViewModel
-import com.space.quizzapp.presentation.detail.fragment.DetailsFragmentDirections
 import com.space.quizzapp.presentation.model.local.UserSubjectUIModel
 import com.space.quizzapp.presentation.model.local.mapper.UserSubjectUIToDomainMapper
 import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
@@ -59,7 +58,8 @@ class QuestionsViewModel(
                     quizIcon,
                     quizTitle,
                     correctAnswerCount,
-                    activeUser.username
+                    activeUser.username,
+                    questionsCount
                 )
             }
             insertUserSubjectUseCase.invoke(mapper(userSubject))
