@@ -5,12 +5,12 @@ import com.space.quizzapp.data.local.entity.UserEntityModel
 import com.space.quizzapp.domain.model.local.UserDomainModel
 
 class UserDomainToEntityMapper : ModelMapper<UserDomainModel, UserEntityModel> {
-    override fun invoke(model: UserDomainModel): UserEntityModel {
-        return UserEntityModel(
-            id = model.id,
-            username = model.username,
-            isActive = model.isActive,
-            gpa = model.gpa
+    override fun invoke(model: UserDomainModel): UserEntityModel = with(model) {
+        UserEntityModel(
+            id = id,
+            username = username,
+            isActive = isActive,
+            gpa = gpa
         )
     }
 }

@@ -4,13 +4,11 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.lifecycleScope
-import com.space.quizzapp.common.extensions.setImage
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentDetailsBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.detail.adapter.DetailsAdapter
 import com.space.quizzapp.presentation.detail.viewmodel.DetailsViewModel
-import com.space.quizzapp.presentation.home.viewmodel.HomeViewModel
 import kotlin.reflect.KClass
 
 class DetailsFragment : BaseFragment<DetailsViewModel>() {
@@ -26,13 +24,13 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
     override val layout: Int
         get() = R.layout.fragment_details
 
-    override fun onBind(viewModel: DetailsViewModel) {
-        observer(viewModel)
-        setUpRecycler(viewModel)
-        setListeners(viewModel)
+    override fun onBind() {
+        observer()
+        setUpRecycler()
+        setListeners()
     }
 
-    private fun setUpRecycler(viewModel: DetailsViewModel) {
+    private fun setUpRecycler() {
         binding.detailRecyclerView.apply {
             adapter = detailsAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -42,7 +40,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
         }
     }
 
-    private fun observer(viewModel: DetailsViewModel) {
+    private fun observer() {
         lifecycleScope {
             viewModel.subjectsItem.collect {
                 if (it.isEmpty()) {
@@ -55,7 +53,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
         }
     }
 
-    private fun setListeners(viewModel: DetailsViewModel) {
+    private fun setListeners() {
         binding.backImageButton.setOnClickListener {
             viewModel.navigateTo(DetailsFragmentDirections.actionDetailsFragmentToHomeFragment())
         }

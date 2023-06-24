@@ -6,11 +6,11 @@ import androidx.lifecycle.lifecycleScope
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.showToast
 import com.space.quizzapp.common.extensions.viewBinding
-import com.space.quizzapp.presentation.base.fragment.BaseFragment
-import com.space.quizzapp.presentation.authentication.viewmodel.AuthenticationViewModel
-import kotlin.reflect.KClass
 import com.space.quizzapp.databinding.FragmentAuthenticationBinding
+import com.space.quizzapp.presentation.authentication.viewmodel.AuthenticationViewModel
+import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import kotlinx.coroutines.launch
+import kotlin.reflect.KClass
 
 class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
     private val binding by viewBinding(FragmentAuthenticationBinding::bind)
@@ -19,7 +19,7 @@ class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
         get() = AuthenticationViewModel::class
     override val layout: Int = R.layout.fragment_authentication
 
-    override fun onBind(viewModel: AuthenticationViewModel) {
+    override fun onBind() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.errorMessage.flowWithLifecycle(
                 viewLifecycleOwner.lifecycle,
@@ -28,10 +28,10 @@ class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
                 requireContext().showToast(getString(R.string.incorrect_input))
             }
         }
-        setListeners(viewModel)
+        setListeners()
     }
 
-    private fun setListeners(viewModel: AuthenticationViewModel) {
+    private fun setListeners() {
         binding.startButton.setOnClickListener {
             val username = binding.usernameEditText.text.toString()
             viewModel.checkUsernameAvailability(username)

@@ -5,15 +5,15 @@ import com.space.quizzapp.domain.model.local.UserSubjectDomainModel
 import com.space.quizzapp.presentation.model.local.UserSubjectUIModel
 
 class UserSubjectUIToDomainMapper : ModelMapper<UserSubjectUIModel, UserSubjectDomainModel> {
-    override fun invoke(model: UserSubjectUIModel): UserSubjectDomainModel {
-        return UserSubjectDomainModel(
-            id = model.id,
-            quizDescription = model.quizDescription,
-            quizIcon = model.quizIcon,
-            quizTitle = model.quizTitle,
-            collectedPoints = model.collectedPoints,
-            userName = model.userName,
-            questionsCount = model.questionsCount
+    override fun invoke(model: UserSubjectUIModel): UserSubjectDomainModel = with(model) {
+        UserSubjectDomainModel(
+            id = id,
+            quizDescription = quizDescription,
+            quizIcon = quizIcon,
+            quizTitle = quizTitle,
+            collectedPoints = collectedPoints,
+            userName = userName,
+            questionsCount = questionsCount
         )
     }
 }

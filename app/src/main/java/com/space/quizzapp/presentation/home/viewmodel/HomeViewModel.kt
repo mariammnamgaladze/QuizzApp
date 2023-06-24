@@ -2,9 +2,7 @@ package com.space.quizzapp.presentation.home.viewmodel
 
 import androidx.navigation.NavDirections
 import com.space.quizzapp.common.extensions.viewModelScope
-import com.space.quizzapp.common.mapper.ModelMapper
 import com.space.quizzapp.common.resource.ResponseHandler
-import com.space.quizzapp.domain.model.remote.QuizItemDomainModel
 import com.space.quizzapp.domain.usecase.quiz.GetQuizUseCase
 import com.space.quizzapp.domain.usecase.user.active_user.GetCurrentUserUseCase
 import com.space.quizzapp.domain.usecase.user.update_user_status.UpdateUserActiveStatusUseCase
@@ -13,13 +11,14 @@ import com.space.quizzapp.presentation.home.fragment.HomeFragmentDirections
 import com.space.quizzapp.presentation.model.local.UserUIModel
 import com.space.quizzapp.presentation.model.local.mapper.UserDomainToUIMapper
 import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
+import com.space.quizzapp.presentation.model.remote.mapper.QuizItemDomainUIMapper
 import kotlinx.coroutines.flow.*
 
 class HomeViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val updateUserActiveStatusUseCase: UpdateUserActiveStatusUseCase,
     private val getQuizUseCase: GetQuizUseCase,
-    private val quizItemDomainUIMapper: ModelMapper<QuizItemDomainModel, QuizItemUIModel>,
+    private val quizItemDomainUIMapper: QuizItemDomainUIMapper,
     private val userDomainToUIMapper: UserDomainToUIMapper
 ) : BaseViewModel() {
 
@@ -70,6 +69,7 @@ class HomeViewModel(
     fun getActiveUsernames() {
         viewModelScope {
             val activeUser = getCurrentUserUseCase.invoke(true)
+            activeUsername = activeUser.username
             _activeUsernames.emit(userDomainToUIMapper(activeUser))
         }
     }

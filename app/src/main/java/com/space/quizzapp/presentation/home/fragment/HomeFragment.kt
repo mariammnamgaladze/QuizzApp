@@ -26,15 +26,15 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         HomeAdapter()
     }
 
-    override fun onBind(viewModel: HomeViewModel) {
-        showUserInfo(viewModel)
-        setListeners(viewModel)
-        dialogListener(viewModel)
-        observer(viewModel)
-        setUpRecycler(viewModel)
+    override fun onBind() {
+        showUserInfo()
+        setListeners()
+        dialogListener()
+        observer()
+        setUpRecycler()
     }
 
-    private fun setUpRecycler(viewModel: HomeViewModel) {
+    private fun setUpRecycler() {
         binding.homeRecyclerView.apply {
             adapter = homeAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -44,7 +44,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
     }
 
-    private fun observer(viewModel: HomeViewModel) {
+    private fun observer() {
         lifecycleScope {
             viewModel.quizItems.collect {
                 homeAdapter.submitList(it)
@@ -61,7 +61,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
     }
 
-    private fun showUserInfo(viewModel: HomeViewModel) {
+    private fun showUserInfo() {
         viewModel.getActiveUsernames()
         lifecycleScope {
             viewModel.activeUsernames.collect {
@@ -72,7 +72,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
     }
 
-    private fun setListeners(viewModel: HomeViewModel) {
+    private fun setListeners() {
         with(binding) {
             detailImageButton.setOnClickListener { viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailsFragment()) }
         }
@@ -83,7 +83,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         })
     }
 
-    private fun dialogListener(viewModel: HomeViewModel) {
+    private fun dialogListener() {
         binding.logOutImageView.setOnClickListener {
             QuizzDialogFragment.twoButtonState(
                 requireContext().getString(R.string.dialog_log_out_question),

@@ -5,21 +5,23 @@ import com.space.quizzapp.data.remote.model.QuizItemDTO
 import com.space.quizzapp.domain.model.remote.QuizItemDomainModel
 
 class QuizItemDTODomainMapper : ModelMapper<QuizItemDTO, QuizItemDomainModel> {
-    override fun invoke(model: QuizItemDTO): QuizItemDomainModel {
-        return QuizItemDomainModel(
-            id = model.id.toInt(),
-            quizTitle = model.quizTitle,
-            quizDescription = model.quizDescription,
-            quizIcon = model.quizIcon,
-            questionsCount = model.questionsCount,
-            questions = model.questions.map { questionDTO ->
-                QuizItemDomainModel.QuizQuestionDomainModel(
-                    subjectId = questionDTO.subjectId,
-                    questionTitle = questionDTO.questionTitle,
-                    questionIndex = questionDTO.questionIndex,
-                    correctAnswer = questionDTO.correctAnswer,
-                    answers = questionDTO.answers
-                )
+    override fun invoke(model: QuizItemDTO): QuizItemDomainModel = with(model) {
+        QuizItemDomainModel(
+            id = id.toInt(),
+            quizTitle = quizTitle,
+            quizDescription = quizDescription,
+            quizIcon = quizIcon,
+            questionsCount = questionsCount,
+            questions = questions.map { questionDTO ->
+                with(questionDTO) {
+                    QuizItemDomainModel.QuizQuestionDomainModel(
+                        subjectId = subjectId,
+                        questionTitle = questionTitle,
+                        questionIndex = questionIndex,
+                        correctAnswer = correctAnswer,
+                        answers = answers
+                    )
+                }
             }
         )
     }

@@ -7,7 +7,7 @@ class UpdateUserActiveStatusUseCase(private val userRepository: UserRepository) 
     BaseUseCase<Pair<String, Boolean>, Unit>() {
 
     override suspend operator fun invoke(params: Pair<String, Boolean>?) {
-        val (username, isActive) = params ?: throw IllegalArgumentException("Username and isActive pair must not be null")
+        val (username, isActive) = params!!
         userRepository.updateUserActiveStatus(username, isActive)
     }
 }

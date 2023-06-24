@@ -1,15 +1,11 @@
 package com.space.quizzapp.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import com.space.quizzapp.data.local.entity.UserEntityModel
+import androidx.room.*
 import com.space.quizzapp.data.local.entity.UserSubjectEntityModel
 
 @Dao
 interface UserSubjectDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserSubjects(userSubject: UserSubjectEntityModel)
 
     @Query("SELECT * FROM points_info WHERE userName = :userName AND quizTitle = :quizTitle")

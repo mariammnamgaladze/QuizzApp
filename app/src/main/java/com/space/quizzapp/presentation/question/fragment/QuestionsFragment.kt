@@ -19,16 +19,16 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
     private val args: QuestionsFragmentArgs by navArgs()
 
 
-    override fun onBind(viewModel: QuestionsViewModel) {
+    override fun onBind() {
         val quiz = args.item
         binding.subjectTextView.text = quiz.quizTitle
         viewModel.quizModel = quiz
-        observer(viewModel)
+        observer()
         viewModel.getQuiz()
-        setListeners(viewModel)
+        setListeners()
     }
 
-    private fun observer(viewModel: QuestionsViewModel) {
+    private fun observer() {
         lifecycleScope {
             viewModel.quizItem.collect {
                 it?.let {
@@ -49,7 +49,7 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
 
     }
 
-    private fun setListeners(viewModel: QuestionsViewModel) {
+    private fun setListeners() {
         binding.materialButton.setOnClickListener {
             viewModel.getQuiz()
         }

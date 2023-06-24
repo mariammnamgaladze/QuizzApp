@@ -5,12 +5,11 @@ import com.space.quizzapp.common.extensions.viewModelScope
 import com.space.quizzapp.domain.usecase.subject.GetUserSubjectUseCase
 import com.space.quizzapp.domain.usecase.user.active_user.GetCurrentUserUseCase
 import com.space.quizzapp.domain.usecase.user.update_user_status.UpdateUserActiveStatusUseCase
-import com.space.quizzapp.presentation.authentication.fragment.AuthenticationFragmentDirections
 import com.space.quizzapp.presentation.base.viewmodel.BaseViewModel
-import com.space.quizzapp.presentation.detail.fragment.DetailsFragmentDirections
 import com.space.quizzapp.presentation.model.local.UserSubjectUIModel
 import com.space.quizzapp.presentation.model.local.mapper.UserSubjectDomainToUIMapper
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class DetailsViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
@@ -37,14 +36,13 @@ class DetailsViewModel(
         viewModelScope {
             val activeUser = getCurrentUserUseCase.invoke(true)
             activeUsername = activeUser.username
-        }
-        viewModelScope {
+
             updateUserActiveStatusUseCase.invoke(activeUsername to isActive)
+
         }
     }
 
     fun navigateTo(destination: NavDirections) {
         navigate(destination)
     }
-
 }

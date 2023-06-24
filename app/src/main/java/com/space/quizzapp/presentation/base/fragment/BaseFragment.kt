@@ -13,11 +13,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModelForClass
 import kotlin.reflect.KClass
 
 
-abstract class BaseFragment<VM : BaseViewModel>() : Fragment() {
-    abstract val viewModelClass: KClass<VM>
-    private val viewModel: VM by viewModelForClass(clazz = viewModelClass)
+abstract class BaseFragment<ViewModel : BaseViewModel>() : Fragment() {
+
+    protected val viewModel: ViewModel by viewModelForClass(clazz = viewModelClass)
+
+    abstract val viewModelClass: KClass<ViewModel>
+
     protected abstract val layout: Int
-    abstract fun onBind(viewModel: VM)
+
+    abstract fun onBind()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,10 +33,9 @@ abstract class BaseFragment<VM : BaseViewModel>() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onBind(viewModel)
+        onBind()
         observeNavigation()
     }
-
 
     private fun observeNavigation() {
         lifecycleScope {
@@ -40,10 +44,16 @@ abstract class BaseFragment<VM : BaseViewModel>() : Fragment() {
             }
         }
     }
+
     private fun handleNavigation(navCommand: NavigationCommand) {
         when (navCommand) {
             is NavigationCommand.ToDirection -> findNavController().navigate(navCommand.directions)
             is NavigationCommand.Back -> findNavController().navigateUp()
         }
+    }
+
+    fun navigateTo(destinationId: Int) {
+        val navController = findNavController()
+        navController.navigate(destinationId)
     }
 }

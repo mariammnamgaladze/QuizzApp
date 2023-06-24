@@ -12,11 +12,11 @@ import com.space.quizzapp.domain.usecase.user.user_validation.UsernameValidation
 import org.koin.dsl.module
 
 val UseCaseModule = module {
+    single { UpdateUserActiveStatusUseCase(get()) }
     single { SaveUserUseCase(get()) }
     single { ObserveUserUseCase(get()) }
     single { UsernameValidationUseCase(get()) }
     single { GetCurrentUserUseCase(get()) }
-    single { UpdateUserActiveStatusUseCase(get()) }
     single { GetQuizUseCase(get()) }
     single { InsertUserSubjectUseCase(get(), get()) }
     single { GetUserSubjectUseCase(get()) }
