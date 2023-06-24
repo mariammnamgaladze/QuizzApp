@@ -2,7 +2,6 @@ package com.space.quizzapp.presentation.home.fragment
 
 import HomeAdapter
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.lifecycleScope
 import com.space.quizzapp.common.extensions.viewBinding
@@ -37,7 +36,6 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     private fun setUpRecycler() {
         binding.homeRecyclerView.apply {
             adapter = homeAdapter
-            layoutManager = LinearLayoutManager(requireContext())
         }
         lifecycleScope {
             viewModel.getQuiz()

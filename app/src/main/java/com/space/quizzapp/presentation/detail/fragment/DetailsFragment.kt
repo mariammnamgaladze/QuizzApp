@@ -1,7 +1,6 @@
 package com.space.quizzapp.presentation.detail.fragment
 
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.lifecycleScope
 import com.space.quizzapp.common.extensions.viewBinding
@@ -33,7 +32,6 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
     private fun setUpRecycler() {
         binding.detailRecyclerView.apply {
             adapter = detailsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
         }
         lifecycleScope {
             viewModel.getUserSubject()

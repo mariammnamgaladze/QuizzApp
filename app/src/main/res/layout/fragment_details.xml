@@ -50,6 +50,7 @@
         android:id="@+id/detailRecyclerView"
         android:layout_width="@dimen/dimen_406dp"
         android:layout_height="@dimen/dimen_591dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_marginTop="@dimen/dimen_15dp"
         tools:listitem="@layout/subject_layout_item"
         app:layout_constraintEnd_toEndOf="parent"
