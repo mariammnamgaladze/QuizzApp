@@ -41,6 +41,7 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
         collectAsync(viewModel.finalScore) { point ->
             point?.let { point ->
                 requireContext().showToast(point.toString())
+                //TODO Dialog
             }
         }
     }

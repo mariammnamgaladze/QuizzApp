@@ -58,6 +58,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
             lifecycleScope {
                 viewModel.updateActiveStatus(isActive = false)
             }
+            //TODO Dialog
             viewModel.navigateTo((DetailsFragmentDirections.actionDetailsFragmentToStartFragment()))
         }
     }

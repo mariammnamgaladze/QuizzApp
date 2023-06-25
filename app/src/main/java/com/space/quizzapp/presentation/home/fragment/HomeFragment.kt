@@ -47,13 +47,15 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         collectAsync(viewModel.quizItems) {
             homeAdapter.submitList(it)
         }
-
         collectAsync(viewModel.isLoading) { isLoading ->
             binding.progressBar.visibility = if (isLoading) {
                 View.VISIBLE
             } else {
                 View.GONE
             }
+        }
+        collectAsync(viewModel.error) {
+            //TODO Dialog
         }
     }
 

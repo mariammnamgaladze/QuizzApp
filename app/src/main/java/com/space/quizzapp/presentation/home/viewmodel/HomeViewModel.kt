@@ -43,9 +43,8 @@ class HomeViewModel(
                 .onEach { responseHandler ->
                     when (responseHandler) {
                         is ResponseHandler.Success -> {
-                            val quizItems =
+                            _quizItems.value =
                                 responseHandler.response.map { quizItemDomainUIMapper(it) }
-                            _quizItems.value = quizItems
                             _isLoading.value = false
                         }
                         is ResponseHandler.Error -> {
@@ -57,14 +56,9 @@ class HomeViewModel(
                         }
                     }
                 }
-                .catch { exception ->
-                    _isLoading.value = false
-                    _error.value = exception.message
-                }
                 .collect()
         }
     }
-
 
     fun getActiveUsernames() {
         viewModelScope {
