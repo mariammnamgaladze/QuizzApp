@@ -55,7 +55,14 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             }
         }
         collectAsync(viewModel.error) {
-            //TODO Dialog
+            it?.let {
+                val dialogFragment =
+                    QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.ONE_BUTTON)
+                        .setCommonTextViewText((requireContext().getString(R.string.no_internet)))
+                        .setCloseText((requireContext().getString(R.string.close)))
+                        .build()
+                dialogFragment.show(parentFragmentManager, null)
+            }
         }
     }
 
@@ -69,7 +76,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
     private fun setListeners() {
         with(binding) {
-            detailImageButton.setOnClickListener { viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailsFragment()) }
+            detailTextView.setOnClickListener { viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailsFragment()) }
         }
         homeAdapter.setOnItemClickListener(object : HomeAdapter.OnItemClickListener {
             override fun onItemClick(item: QuizItemUIModel) {
@@ -80,15 +87,17 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
     private fun dialogListener() {
         binding.logOutImageView.setOnClickListener {
-            QuizzDialogFragment.twoButtonState(
-                requireContext().getString(R.string.dialog_log_out_question),
-                requireContext().getDrawable(R.drawable.bkg_yes_button)!!,
-                requireContext().getDrawable(R.drawable.bkg_no_button)!!,
-                positiveButtonAction = {
-                    viewModel.updateActiveStatus(isActive = false)
-                    viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToStartFragment())
-                }
-            ) {}.show(parentFragmentManager, "")
+            val dialogFragment =
+                QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
+                    .setCommonTextViewText(requireContext().getString(R.string.dialog_log_out_question))
+                    .setPositiveButtonBackground(requireContext().getDrawable(R.drawable.bkg_yes_button)!!)
+                    .setNegativeButtonBackground(requireContext().getDrawable(R.drawable.bkg_no_button)!!)
+                    .setPositiveButtonAction {
+                        viewModel.updateActiveStatus(isActive = false)
+                        viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToStartFragment())
+                    }
+                    .build()
+            dialogFragment.show(parentFragmentManager, null)
         }
     }
 }

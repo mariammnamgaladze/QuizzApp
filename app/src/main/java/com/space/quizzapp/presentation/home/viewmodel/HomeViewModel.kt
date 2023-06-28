@@ -39,6 +39,7 @@ class HomeViewModel(
     fun getQuiz() {
         viewModelScope {
             _isLoading.value = true
+            _error.value = null
             getQuizUseCase.invoke()
                 .onEach { responseHandler ->
                     when (responseHandler) {

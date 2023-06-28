@@ -9,6 +9,7 @@ import com.space.quizzapp.databinding.FragmentDetailsBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.detail.adapter.DetailsAdapter
 import com.space.quizzapp.presentation.detail.viewmodel.DetailsViewModel
+import com.space.quizzapp.presentation.dialog.fragment.QuizzDialogFragment
 import kotlin.reflect.KClass
 
 class DetailsFragment : BaseFragment<DetailsViewModel>() {
@@ -55,11 +56,17 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
             viewModel.navigateTo(DetailsFragmentDirections.actionDetailsFragmentToHomeFragment())
         }
         binding.logOutImageButton.setOnClickListener {
-            lifecycleScope {
-                viewModel.updateActiveStatus(isActive = false)
-            }
-            //TODO Dialog
-            viewModel.navigateTo((DetailsFragmentDirections.actionDetailsFragmentToStartFragment()))
+            val dialogFragment =
+                QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
+                    .setCommonTextViewText(requireContext().getString(R.string.dialog_log_out_question))
+                    .setPositiveButtonBackground(requireContext().getDrawable(R.drawable.bkg_yes_button)!!)
+                    .setNegativeButtonBackground(requireContext().getDrawable(R.drawable.bkg_no_button)!!)
+                    .setPositiveButtonAction {
+                        viewModel.updateActiveStatus(isActive = false)
+                        viewModel.navigateTo((DetailsFragmentDirections.actionDetailsFragmentToStartFragment()))
+                    }
+                    .build()
+            dialogFragment.show(parentFragmentManager, null)
         }
     }
 }

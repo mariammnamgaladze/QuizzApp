@@ -3,10 +3,10 @@ package com.space.quizzapp.presentation.question.fragment
 import androidx.navigation.fragment.navArgs
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.collectAsync
-import com.space.quizzapp.common.extensions.showToast
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentQuestionsBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
+import com.space.quizzapp.presentation.dialog.fragment.QuizzDialogFragment
 import com.space.quizzapp.presentation.question.viewmodel.QuestionsViewModel
 import kotlin.reflect.KClass
 
@@ -40,8 +40,22 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
 
         collectAsync(viewModel.finalScore) { point ->
             point?.let { point ->
-                requireContext().showToast(point.toString())
-                //TODO Dialog
+                val dialogFragment =
+                    QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.ONE_BUTTON)
+                        .setImageView(requireContext().getDrawable(R.drawable.ic_congrats)!!)
+                        .setCommonTextViewText(requireContext().getString(R.string.congrats))
+                        .setCollectedPointsText(
+                            requireContext().getString(
+                                R.string.collected_points,
+                                point
+                            )
+                        )
+                        .setCloseText(requireContext().getString(R.string.close))
+                        .setButtonAction {
+                            viewModel.navigateToHome()
+                        }
+                        .build()
+                dialogFragment.show(parentFragmentManager, null)
             }
         }
     }
