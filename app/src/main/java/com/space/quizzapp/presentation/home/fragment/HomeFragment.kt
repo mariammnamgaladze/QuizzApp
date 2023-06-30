@@ -2,9 +2,11 @@ package com.space.quizzapp.presentation.home.fragment
 
 import HomeAdapter
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.collectAsync
 import com.space.quizzapp.common.extensions.lifecycleScope
+import com.space.quizzapp.common.extensions.setColoredTextWithPrefix
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentHomeBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
@@ -70,7 +72,9 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         viewModel.getActiveUsernames()
         collectAsync(viewModel.activeUsernames) {
             binding.greetingTextView.text = getString(R.string.greeting_text, it?.username)
-            binding.gpaTV.text = getString(R.string.gpa, it?.gpa)
+
+            binding.gpaTV.setColoredTextWithPrefix("GPA - ",it?.gpa.toString(),
+                ContextCompat.getColor(requireContext(),R.color.yellow_primary))
         }
     }
 

@@ -11,7 +11,7 @@ import android.view.View.GONE
 import androidx.fragment.app.DialogFragment
 import com.space.quizzapp.databinding.DialogLayoutBinding
 
-class QuizzDialogFragment private constructor(
+class QuizzDialogFragment constructor(
     private val dialogType: DialogType,
     private val commonTextViewText: String?,
     private val positiveButtonBackground: Drawable?,
@@ -39,34 +39,41 @@ class QuizzDialogFragment private constructor(
     }
 
     private fun setupDialogContent() {
-        binding.commonTextView.text = commonTextViewText
-        binding.confirmImageButton.background = positiveButtonBackground
-        binding.declineImageButton.background = negativeButtonBackground
-        binding.emojiImageView.background = imageView
-        binding.collectedPointsTextView.text = collectedPointsText
-        binding.closeTextView.text = closeText
+        with(binding) {
+            commonTextView.text = commonTextViewText
+            confirmImageButton.background = positiveButtonBackground
+            declineImageButton.background = negativeButtonBackground
+            emojiImageView.background = imageView
+            collectedPointsTextView.text = collectedPointsText
+            closeTextView.text = closeText
+        }
     }
 
     private fun setupButtonActions(builder: AlertDialog.Builder) {
-        when (dialogType) {
+        when (dialogType!!) {
             DialogType.TWO_BUTTON -> {
-                binding.closeTextView.visibility = GONE
-                binding.confirmImageButton.setOnClickListener {
-                    positiveButtonAction?.invoke()
-                    dismiss()
+                with(binding) {
+                    closeTextView.visibility = GONE
+                    confirmImageButton.setOnClickListener {
+                        positiveButtonAction?.invoke()
+                        dismiss()
+                    }
+                    declineImageButton.setOnClickListener {
+                        negativeButtonAction?.invoke()
+                        dismiss()
+                    }
+                    builder.setCancelable(false)
                 }
-                binding.declineImageButton.setOnClickListener {
-                    negativeButtonAction?.invoke()
-                    dismiss()
-                }
-                builder.setCancelable(false)
             }
+
             DialogType.ONE_BUTTON -> {
-                binding.confirmImageButton.visibility = GONE
-                binding.declineImageButton.visibility = GONE
-                binding.closeTextView.setOnClickListener {
-                    buttonAction?.invoke()
-                    dismiss()
+                with(binding) {
+                    confirmImageButton.visibility = GONE
+                    declineImageButton.visibility = GONE
+                    closeTextView.setOnClickListener {
+                        buttonAction?.invoke()
+                        dismiss()
+                    }
                 }
             }
         }
@@ -84,18 +91,20 @@ class QuizzDialogFragment private constructor(
 
     companion object {
         fun createDialog(builder: DialogBuilder): QuizzDialogFragment {
-            return QuizzDialogFragment(
-                builder.dialogType,
-                builder.commonTextViewText,
-                builder.positiveButtonBackground,
-                builder.negativeButtonBackground,
-                builder.positiveButtonAction,
-                builder.negativeButtonAction,
-                builder.imageView,
-                builder.collectedPointsText,
-                builder.closeText,
-                builder.buttonAction
-            )
+            with(builder) {
+                return QuizzDialogFragment(
+                    dialogType,
+                    commonTextViewText,
+                    positiveButtonBackground,
+                    negativeButtonBackground,
+                    positiveButtonAction,
+                    negativeButtonAction,
+                    imageView,
+                    collectedPointsText,
+                    closeText,
+                    buttonAction
+                )
+            }
         }
     }
 
