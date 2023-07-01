@@ -41,20 +41,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
+    <com.space.quizzapp.presentation.question.custom_view.ProgressView
+        android:id="@+id/progressView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_16dp"
         android:layout_marginTop="@dimen/dimen_44dp"
-        android:backgroundTint="@color/neutral_02_grey"
-        android:indeterminate="false"
-        android:progressTint="@color/blue_secondary_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subjectTextView" />
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/materialButton"
@@ -71,28 +66,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/quizContainerView" />
 
-    <TextView
-        android:id="@+id/currentQuestionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen_12sp"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
-        app:layout_constraintStart_toStartOf="@+id/progressBar"
-        tools:text="1/11" />
-
-    <TextView
-        android:id="@+id/currentPointTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="@dimen/dimen_10dp"
-        android:text="@string/current_point"
-        android:textColor="@color/yellow_primary"
-        android:textSize="@dimen/dimen_12sp"
-        app:drawableEndCompat="@drawable/ic_yellow_star"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="@+id/progressBar" />
-
     <ImageView
         android:id="@+id/questionsBackgroundImageView"
         android:layout_width="wrap_content"
@@ -101,7 +74,7 @@
         android:src="@drawable/bkg_questions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@+id/progressView" />
 
     <TextView
         android:id="@+id/questionsTextView"

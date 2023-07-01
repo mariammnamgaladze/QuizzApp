@@ -3,6 +3,7 @@ package com.space.quizzapp.presentation.home.fragment
 import HomeAdapter
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.collectAsync
 import com.space.quizzapp.common.extensions.lifecycleScope
@@ -10,6 +11,7 @@ import com.space.quizzapp.common.extensions.setColoredTextWithPrefix
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentHomeBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
+import com.space.quizzapp.presentation.detail.fragment.DetailsFragmentDirections
 import com.space.quizzapp.presentation.dialog.fragment.QuizzDialogFragment
 import com.space.quizzapp.presentation.home.viewmodel.HomeViewModel
 import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
@@ -80,7 +82,9 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
     private fun setListeners() {
         with(binding) {
-            detailTextView.setOnClickListener { viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailsFragment()) }
+            detailTextView.setOnClickListener {
+                viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailsFragment())
+            }
         }
         homeAdapter.setOnItemClickListener(object : HomeAdapter.OnItemClickListener {
             override fun onItemClick(item: QuizItemUIModel) {
@@ -98,7 +102,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                     .setNegativeButtonBackground(requireContext().getDrawable(R.drawable.bkg_no_button)!!)
                     .setPositiveButtonAction {
                         viewModel.updateActiveStatus(isActive = false)
-                        viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToStartFragment())
+                        viewModel.navigate(HomeFragmentDirections.actionHomeFragmentToStartFragment())
                     }
                     .build()
             dialogFragment.show(parentFragmentManager, null)

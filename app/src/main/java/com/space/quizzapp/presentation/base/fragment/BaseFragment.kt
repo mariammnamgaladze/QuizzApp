@@ -51,9 +51,4 @@ abstract class BaseFragment<ViewModel : BaseViewModel>() : Fragment() {
             is NavigationCommand.Back -> findNavController().navigateUp()
         }
     }
-
-    fun navigateTo(destinationId: Int) {
-        val navController = findNavController()
-        navController.navigate(destinationId)
-    }
 }

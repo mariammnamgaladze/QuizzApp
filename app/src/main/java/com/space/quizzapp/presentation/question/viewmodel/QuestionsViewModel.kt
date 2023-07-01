@@ -7,7 +7,6 @@ import com.space.quizzapp.presentation.base.viewmodel.BaseViewModel
 import com.space.quizzapp.presentation.model.local.UserSubjectUIModel
 import com.space.quizzapp.presentation.model.local.mapper.UserSubjectUIToDomainMapper
 import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
-import com.space.quizzapp.presentation.question.fragment.QuestionsFragmentDirections
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -23,6 +22,8 @@ class QuestionsViewModel(
     private val _finalScore = MutableStateFlow<Int?>(null)
     val finalScore = _finalScore.asStateFlow()
 
+    private val _currentScore = MutableStateFlow<Int?>(null)
+    val currentScore = _currentScore.asStateFlow()
 
     private var currentQuestionIndex = 0
     lateinit var quizModel: QuizItemUIModel
@@ -30,9 +31,7 @@ class QuestionsViewModel(
 
 
     fun updateCorrectPoints(isAnswerCorrect: Boolean) {
-        viewModelScope {
-            if (isAnswerCorrect) correctAnswerCount++
-        }
+        if (isAnswerCorrect) correctAnswerCount++
     }
 
     fun getQuiz() {
@@ -40,8 +39,9 @@ class QuestionsViewModel(
             if (currentQuestionIndex < quizModel.questions.size) {
                 _quizItem.emit(quizModel.questions[currentQuestionIndex])
                 currentQuestionIndex++
-
+                _currentScore.emit(correctAnswerCount)
             } else {
+                _currentScore.emit(correctAnswerCount)
                 saveScore()
                 _finalScore.emit(correctAnswerCount)
             }
@@ -66,9 +66,6 @@ class QuestionsViewModel(
         }
     }
 
-    fun navigateToHome() {
-        navigate(QuestionsFragmentDirections.actionQuestionsFragmentToHomeFragment())
-    }
 
 
 }

@@ -1,11 +1,15 @@
 package com.space.quizzapp.presentation.detail.fragment
 
 import android.view.View
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.collectAsync
 import com.space.quizzapp.common.extensions.lifecycleScope
+import com.space.quizzapp.common.extensions.showToast
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentDetailsBinding
+import com.space.quizzapp.presentation.authentication.fragment.AuthenticationFragmentDirections
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.detail.adapter.DetailsAdapter
 import com.space.quizzapp.presentation.detail.viewmodel.DetailsViewModel
@@ -53,7 +57,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
 
     private fun setListeners() {
         binding.backImageButton.setOnClickListener {
-            viewModel.navigateTo(DetailsFragmentDirections.actionDetailsFragmentToHomeFragment())
+            viewModel.navigateBack()
         }
         binding.logOutImageButton.setOnClickListener {
             val dialogFragment =
@@ -63,7 +67,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
                     .setNegativeButtonBackground(requireContext().getDrawable(R.drawable.bkg_no_button)!!)
                     .setPositiveButtonAction {
                         viewModel.updateActiveStatus(isActive = false)
-                        viewModel.navigateTo((DetailsFragmentDirections.actionDetailsFragmentToStartFragment()))
+                        viewModel.navigate(DetailsFragmentDirections.actionDetailsFragmentToStartFragment())
                     }
                     .build()
             dialogFragment.show(parentFragmentManager, null)

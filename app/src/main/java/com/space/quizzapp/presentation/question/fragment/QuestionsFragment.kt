@@ -7,6 +7,7 @@ import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentQuestionsBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.dialog.fragment.QuizzDialogFragment
+import com.space.quizzapp.presentation.question.custom_view.ProgressView
 import com.space.quizzapp.presentation.question.viewmodel.QuestionsViewModel
 import kotlin.reflect.KClass
 
@@ -19,6 +20,7 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
     private val args: QuestionsFragmentArgs by navArgs()
 
 
+    private lateinit var progressView: ProgressView
     override fun onBind() {
         val quiz = args.item
         binding.subjectTextView.text = quiz.quizTitle
@@ -26,15 +28,27 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
         observer()
         viewModel.getQuiz()
         setListeners()
+        progressView = binding.progressView
+        progressView.setCurrentQuestion(1, quiz.questionsCount)
+        progressView.setCurrentPoint(0)
+
     }
 
     private fun observer() {
 
         collectAsync(viewModel.quizItem) {
+            val quiz = viewModel.quizModel
             it?.let {
+                progressView.setCurrentQuestion(it.questionIndex + 1,quiz.questionsCount)
                 binding.materialButton.isEnabled = false
                 binding.questionsTextView.text = it.questionTitle
                 binding.quizContainerView.setAnswersList(it)
+            }
+        }
+
+        collectAsync(viewModel.currentScore){
+            it.let {
+                    progressView.setCurrentPoint(it!!)
             }
         }
 
@@ -52,7 +66,7 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
                         )
                         .setCloseText(requireContext().getString(R.string.close))
                         .setButtonAction {
-                            viewModel.navigateToHome()
+                            viewModel.navigateBack()
                         }
                         .build()
                 dialogFragment.show(parentFragmentManager, null)
@@ -69,7 +83,7 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
             binding.materialButton.isEnabled = true
         }
         binding.exitImageView.setOnClickListener {
-            viewModel.navigateToHome()
+            viewModel.navigateBack()
         }
     }
 }

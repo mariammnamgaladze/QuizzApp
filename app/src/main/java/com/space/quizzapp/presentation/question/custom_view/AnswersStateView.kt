@@ -57,9 +57,6 @@ class AnswersStateView @JvmOverloads constructor(
         return binding.questionTextView.text.toString()
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-    }
 
     sealed class State(@ColorRes val color: Int) {
         object Default : State(R.color.neutral_03_light_grey)

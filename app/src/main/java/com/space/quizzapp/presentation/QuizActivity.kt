@@ -14,7 +14,7 @@ class QuizActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.quiz_activity)
-        setUpNavigation()
+//        setUpNavigation()
     }
 
     private fun setUpNavigation() {
