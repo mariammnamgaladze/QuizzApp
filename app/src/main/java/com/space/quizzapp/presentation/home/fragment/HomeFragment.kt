@@ -3,15 +3,14 @@ package com.space.quizzapp.presentation.home.fragment
 import HomeAdapter
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.findNavController
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.collectAsync
+import com.space.quizzapp.common.extensions.convertToDecimals
 import com.space.quizzapp.common.extensions.lifecycleScope
 import com.space.quizzapp.common.extensions.setColoredTextWithPrefix
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentHomeBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
-import com.space.quizzapp.presentation.detail.fragment.DetailsFragmentDirections
 import com.space.quizzapp.presentation.dialog.fragment.QuizzDialogFragment
 import com.space.quizzapp.presentation.home.viewmodel.HomeViewModel
 import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
@@ -74,15 +73,14 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         viewModel.getActiveUsernames()
         collectAsync(viewModel.activeUsernames) {
             binding.greetingTextView.text = getString(R.string.greeting_text, it?.username)
-
-            binding.gpaTV.setColoredTextWithPrefix("GPA - ",it?.gpa.toString(),
+            binding.gpaTV.setColoredTextWithPrefix("GPA - ",it?.gpa!!.convertToDecimals(1),
                 ContextCompat.getColor(requireContext(),R.color.yellow_primary))
         }
     }
 
     private fun setListeners() {
         with(binding) {
-            detailTextView.setOnClickListener {
+            root.setOnClickListener {
                 viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailsFragment())
             }
         }
@@ -98,8 +96,8 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             val dialogFragment =
                 QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
                     .setCommonTextViewText(requireContext().getString(R.string.dialog_log_out_question))
-                    .setPositiveButtonBackground(requireContext().getDrawable(R.drawable.bkg_yes_button)!!)
-                    .setNegativeButtonBackground(requireContext().getDrawable(R.drawable.bkg_no_button)!!)
+                    .setPositiveButtonBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bkg_yes_button)!!)
+                    .setNegativeButtonBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bkg_no_button)!!)
                     .setPositiveButtonAction {
                         viewModel.updateActiveStatus(isActive = false)
                         viewModel.navigate(HomeFragmentDirections.actionHomeFragmentToStartFragment())

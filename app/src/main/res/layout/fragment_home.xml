@@ -10,7 +10,7 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="@dimen/dimen_16dp"
-        android:layout_height="@dimen/dimen_75dp"
+        android:layout_height="@dimen/dimen_84dp"
         android:layout_marginTop="@dimen/dimen_20dp"
         app:cardBackgroundColor="@color/blue_secondary_default"
         app:cardCornerRadius="@dimen/dimen_30dp"
@@ -24,7 +24,8 @@
 
             <TextView
                 android:id="@+id/detailTextView"
-                style="@style/smallMyriadGeo_Normal_white"
+                android:textColor="@color/neutral_04_white"
+                android:textSize="@dimen/dimen_14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dimen_16dp"
@@ -39,11 +40,12 @@
                 android:id="@+id/gpaTV"
                 style="@style/mediumMyriadGeo_Normal"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dimen_35dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_16dp"
                 android:background="@drawable/rounded_corner"
-                android:padding="@dimen/dimen_5dp"
+                android:padding="@dimen/dimen_15dp"
                 android:text="@string/gpa"
+                android:textColor="@color/neutral_04_white"
                 android:textAlignment="center"
                 app:cardCornerRadius="@dimen/dimen_15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -103,10 +105,11 @@
 
     <ImageView
         android:id="@+id/logOutImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dimen_53dp"
+        android:layout_height="@dimen/dimen_53dp"
         android:layout_marginHorizontal="@dimen/dimen_16dp"
-        android:layout_marginBottom="@dimen/dimen_10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
         android:src="@drawable/ic_log_out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

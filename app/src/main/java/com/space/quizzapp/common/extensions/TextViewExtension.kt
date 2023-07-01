@@ -3,8 +3,11 @@ package com.space.quizzapp.common.extensions
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 
 fun TextView.setColoredTextWithPrefix(prefix: String, text: String, @ColorInt color: Int) {
     val spannableString = SpannableString("$prefix$text")
@@ -18,4 +21,15 @@ fun TextView.setColoredTextWithPrefix(prefix: String, text: String, @ColorInt co
     )
 
     this.text = spannableString
+}
+
+fun View.setColor(color: Int) {
+    backgroundTintList = ContextCompat.getColorStateList(context, color)
+}
+
+fun View.visible(visibility: Boolean) {
+    isVisible = visibility
+}
+fun Float.convertToDecimals(numDecimals: Int): String {
+    return String.format("%.${numDecimals}f", this)
 }

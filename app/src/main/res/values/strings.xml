@@ -13,9 +13,11 @@
     <string name="dialog_log_out_question">ნამდვილად გსურს გასვლა?</string>
     <string name="close">დახურვა</string>
     <string name="collected_points">შენ დააგროვე  %1$d ქულა</string>
-    <string name="gpa">GPA-<font fgcolor='#FFC44A'>%1$.1f </font></string>
+    <string name="gpa">GPA-%1$.1f </string>
     <string name="congrats">გილოცავ!</string>
     <string name="incorrect_input">"არავალიდური სახელი"!</string>
     <string name="next">შემდეგი</string>
+    <string name="finish">დასრულება</string>
     <string name="current_point">მიმდინარე ქულა:</string>
+    <string name="plus_one">+1</string>
 </resources>

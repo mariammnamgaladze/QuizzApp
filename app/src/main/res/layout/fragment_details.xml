@@ -10,6 +10,7 @@
         android:id="@+id/backImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10dp"
         android:layout_marginStart="@dimen/dimen_15dp"
         android:layout_marginTop="@dimen/dimen_15dp"
         android:background="@android:color/transparent"
@@ -23,8 +24,9 @@
         style="@style/mediumMyriadGeo_Normal_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_5dp"
-        android:layout_marginTop="@dimen/dimen_14dp"
+        android:layout_marginEnd="@dimen/dimen_44dp"
+        android:layout_marginStart="@dimen/dimen_0dp"
+        android:layout_marginTop="@dimen/dimen_22dp"
         android:drawablePadding="@dimen/dimen_3dp"
         android:paddingStart="@dimen/dimen_5dp"
         android:text="@string/points"
@@ -60,10 +62,10 @@
         app:layout_constraintTop_toBottomOf="@+id/headlineTextView"
         tools:listitem="@layout/subject_layout_item" />
 
-    <ImageButton
-        android:id="@+id/logOutImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/logOutImageView"
+        android:layout_width="@dimen/dimen_53dp"
+        android:layout_height="@dimen/dimen_53dp"
         android:layout_margin="@dimen/dimen_16dp"
         android:layout_marginBottom="@dimen/dimen_10dp"
         android:background="@android:color/transparent"
@@ -78,7 +80,7 @@
         android:layout_height="@dimen/dimen_1dp"
         android:layout_marginBottom="@dimen/dimen_10dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/logOutImageButton"
+        app:layout_constraintBottom_toTopOf="@+id/logOutImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

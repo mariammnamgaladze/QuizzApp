@@ -20,8 +20,9 @@ class ProgressView @JvmOverloads constructor(
         )
     }
 
-    fun setCurrentPoint(currentPoint: Int) {
-        binding.currentPointTextView.text = currentPoint.toString()
+    fun setCurrentPoint( existingText: String,currentPoint: Int) {
+        val newText = "$existingText  $currentPoint"
+        binding.currentPointTextView.text = newText
     }
 
     fun setCurrentQuestion(currentQuestion: Int, maxQuestion: Int) {

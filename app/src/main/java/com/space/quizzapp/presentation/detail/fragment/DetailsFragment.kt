@@ -1,15 +1,12 @@
 package com.space.quizzapp.presentation.detail.fragment
 
 import android.view.View
-import android.widget.Toast
-import androidx.navigation.fragment.findNavController
+import androidx.core.content.ContextCompat
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.collectAsync
 import com.space.quizzapp.common.extensions.lifecycleScope
-import com.space.quizzapp.common.extensions.showToast
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentDetailsBinding
-import com.space.quizzapp.presentation.authentication.fragment.AuthenticationFragmentDirections
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.detail.adapter.DetailsAdapter
 import com.space.quizzapp.presentation.detail.viewmodel.DetailsViewModel
@@ -59,12 +56,12 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
         binding.backImageButton.setOnClickListener {
             viewModel.navigateBack()
         }
-        binding.logOutImageButton.setOnClickListener {
+        binding.logOutImageView.setOnClickListener {
             val dialogFragment =
                 QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
                     .setCommonTextViewText(requireContext().getString(R.string.dialog_log_out_question))
-                    .setPositiveButtonBackground(requireContext().getDrawable(R.drawable.bkg_yes_button)!!)
-                    .setNegativeButtonBackground(requireContext().getDrawable(R.drawable.bkg_no_button)!!)
+                    .setPositiveButtonBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bkg_yes_button)!!)
+                    .setNegativeButtonBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bkg_no_button)!!)
                     .setPositiveButtonAction {
                         viewModel.updateActiveStatus(isActive = false)
                         viewModel.navigate(DetailsFragmentDirections.actionDetailsFragmentToStartFragment())

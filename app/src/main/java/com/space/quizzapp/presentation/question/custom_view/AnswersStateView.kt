@@ -1,14 +1,14 @@
 package com.space.quizzapp.presentation.question.custom_view
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.space.quizzapp.R
+import com.space.quizzapp.common.extensions.setColor
+import com.space.quizzapp.common.extensions.visible
 import com.space.quizzapp.databinding.AnswersLayoutItemBinding
 
 
@@ -26,42 +26,25 @@ class AnswersStateView @JvmOverloads constructor(
         )
     }
 
-    private var currentState: State = State.Default
-
     fun setText(text: String) {
-        binding.questionTextView.text = text
+        binding.answerTextView.text = text
     }
 
-    fun setState(state: State) {
-        currentState = state
-        val color = ContextCompat.getColor(context, state.color)
-        binding.cardView.setCardBackgroundColor(color)
-        setAnswerState(state)
-        // Redraw the view after state change
-        invalidate()
+    fun setCorrectBackground(visiblePoint: Boolean = true) = with(binding) {
+        root.setColor(R.color.success)
+        pointsTextView.visible(visiblePoint)
+        answerTextView.setTextColor(ContextCompat.getColor(context, R.color.neutral_04_white))
     }
 
-    private fun setAnswerState(state: State) {
-        val textColor =
-            if (state is State.Correct || state is State.Wrong) Color.WHITE else Color.BLACK
-        val iconVisibility =
-            if (state is State.Correct && state.isAnswerChecked) VISIBLE else INVISIBLE
-        with(binding) {
-            questionTextView.setTextColor(textColor)
-            pointsTextView.setTextColor(textColor)
-            pointsTextView.visibility = iconVisibility
-        }
+    fun setWrongBackground() = with(binding) {
+        root.setColor(R.color.wrong)
+        pointsTextView.visible(false)
+        answerTextView.setTextColor(ContextCompat.getColor(context, R.color.neutral_04_white))
+
     }
-
-    fun getText(): String {
-        return binding.questionTextView.text.toString()
-    }
-
-
-    sealed class State(@ColorRes val color: Int) {
-        object Default : State(R.color.neutral_03_light_grey)
-        object Wrong : State(R.color.wrong)
-        data class Correct(val isAnswerChecked: Boolean) : State(R.color.success)
+    fun setDefaultBackground() = with(binding) {
+        root.setColor(R.color.neutral_03_light_grey)
+        pointsTextView.visible(false)
     }
 }
 

@@ -1,5 +1,7 @@
 package com.space.quizzapp.presentation.question.viewmodel
 
+import androidx.annotation.StringRes
+import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.viewModelScope
 import com.space.quizzapp.domain.usecase.subject.InsertUserSubjectUseCase
 import com.space.quizzapp.domain.usecase.user.active_user.GetCurrentUserUseCase
@@ -25,6 +27,9 @@ class QuestionsViewModel(
     private val _currentScore = MutableStateFlow<Int?>(null)
     val currentScore = _currentScore.asStateFlow()
 
+    private val _buttonText = MutableStateFlow<@receiver:StringRes Int?>(null)
+    val buttonText = _buttonText.asStateFlow()
+
     private var currentQuestionIndex = 0
     lateinit var quizModel: QuizItemUIModel
     private var correctAnswerCount = 0
@@ -40,10 +45,15 @@ class QuestionsViewModel(
                 _quizItem.emit(quizModel.questions[currentQuestionIndex])
                 currentQuestionIndex++
                 _currentScore.emit(correctAnswerCount)
+                _buttonText.emit(R.string.next)
+
             } else {
                 _currentScore.emit(correctAnswerCount)
                 saveScore()
                 _finalScore.emit(correctAnswerCount)
+            }
+            if (currentQuestionIndex - 1 == quizModel.questions.lastIndex) {
+                _buttonText.emit(R.string.finish)
             }
         }
     }
@@ -65,7 +75,5 @@ class QuestionsViewModel(
             insertUserSubjectUseCase.invoke(mapper(userSubject))
         }
     }
-
-
 
 }
