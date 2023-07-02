@@ -2,6 +2,7 @@ package com.space.quizzapp.presentation.home.fragment
 
 import HomeAdapter
 import android.view.View
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.collectAsync
@@ -32,7 +33,6 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     override fun onBind() {
         showUserInfo()
         setListeners()
-        dialogListener()
         observer()
         setUpRecycler()
     }
@@ -73,12 +73,22 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         viewModel.getActiveUsernames()
         collectAsync(viewModel.activeUsernames) {
             binding.greetingTextView.text = getString(R.string.greeting_text, it?.username)
-            binding.gpaTV.setColoredTextWithPrefix("GPA - ",it?.gpa!!.convertToDecimals(1),
-                ContextCompat.getColor(requireContext(),R.color.yellow_primary))
+            binding.gpaTV.setColoredTextWithPrefix(
+                "GPA - ", it?.gpa!!.convertToDecimals(1),
+                ContextCompat.getColor(requireContext(), R.color.yellow_primary)
+            )
         }
     }
 
     private fun setListeners() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            setUpLogOutDialog()
+        }
+
+        binding.logOutImageView.setOnClickListener {
+            setUpLogOutDialog()
+        }
+
         with(binding) {
             root.setOnClickListener {
                 viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailsFragment())
@@ -91,19 +101,28 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         })
     }
 
-    private fun dialogListener() {
-        binding.logOutImageView.setOnClickListener {
-            val dialogFragment =
-                QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
-                    .setCommonTextViewText(requireContext().getString(R.string.dialog_log_out_question))
-                    .setPositiveButtonBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bkg_yes_button)!!)
-                    .setNegativeButtonBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bkg_no_button)!!)
-                    .setPositiveButtonAction {
-                        viewModel.updateActiveStatus(isActive = false)
-                        viewModel.navigate(HomeFragmentDirections.actionHomeFragmentToStartFragment())
-                    }
-                    .build()
-            dialogFragment.show(parentFragmentManager, null)
-        }
+    private fun setUpLogOutDialog() {
+        val dialogFragment =
+            QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
+                .setCommonTextViewText(requireContext().getString(R.string.dialog_log_out_question))
+                .setPositiveButtonBackground(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.bkg_yes_button
+                    )!!
+                )
+                .setNegativeButtonBackground(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.bkg_no_button
+                    )!!
+                )
+                .setPositiveButtonAction {
+                    viewModel.updateActiveStatus(isActive = false)
+                    viewModel.navigate(HomeFragmentDirections.actionHomeFragmentToStartFragment())
+                }
+                .build()
+        dialogFragment.show(parentFragmentManager, null)
     }
 }
+

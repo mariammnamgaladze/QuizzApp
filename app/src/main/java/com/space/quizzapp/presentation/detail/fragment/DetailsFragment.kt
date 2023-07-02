@@ -1,6 +1,7 @@
 package com.space.quizzapp.presentation.detail.fragment
 
 import android.view.View
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.collectAsync
@@ -53,6 +54,9 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
     }
 
     private fun setListeners() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            viewModel.navigateBack()
+        }
         binding.backImageButton.setOnClickListener {
             viewModel.navigateBack()
         }
@@ -60,8 +64,18 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
             val dialogFragment =
                 QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
                     .setCommonTextViewText(requireContext().getString(R.string.dialog_log_out_question))
-                    .setPositiveButtonBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bkg_yes_button)!!)
-                    .setNegativeButtonBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bkg_no_button)!!)
+                    .setPositiveButtonBackground(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.bkg_yes_button
+                        )!!
+                    )
+                    .setNegativeButtonBackground(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.bkg_no_button
+                        )!!
+                    )
                     .setPositiveButtonAction {
                         viewModel.updateActiveStatus(isActive = false)
                         viewModel.navigate(DetailsFragmentDirections.actionDetailsFragmentToStartFragment())

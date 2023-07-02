@@ -1,5 +1,7 @@
 package com.space.quizzapp.presentation.authentication.fragment
 
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.collectAsync
 import com.space.quizzapp.common.extensions.showToast
@@ -27,6 +29,9 @@ class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
         binding.startButton.setOnClickListener {
             val username = binding.usernameEditText.text.toString()
             viewModel.checkUsernameAvailability(username)
+        }
+        requireActivity().onBackPressedDispatcher.addCallback {
+            requireActivity().finish()
         }
     }
 }

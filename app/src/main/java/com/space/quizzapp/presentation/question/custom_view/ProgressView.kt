@@ -30,6 +30,6 @@ class ProgressView @JvmOverloads constructor(
         binding.currentQuestionTextView.text = questionText
         val progress =
             (currentQuestion.toFloat() / maxQuestion.toFloat() * binding.progressBar.max).toInt()
-        binding.progressBar.progress = progress
+        binding.progressBar.setProgress(progress, true)
     }
 }

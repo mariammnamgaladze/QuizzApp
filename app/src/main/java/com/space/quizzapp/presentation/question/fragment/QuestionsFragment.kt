@@ -1,5 +1,6 @@
 package com.space.quizzapp.presentation.question.fragment
 
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.space.quizzapp.R
@@ -8,6 +9,7 @@ import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentQuestionsBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.dialog.fragment.QuizzDialogFragment
+import com.space.quizzapp.presentation.home.fragment.HomeFragmentDirections
 import com.space.quizzapp.presentation.question.custom_view.ProgressView
 import com.space.quizzapp.presentation.question.viewmodel.QuestionsViewModel
 import kotlin.reflect.KClass
@@ -97,7 +99,10 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
             binding.materialButton.isEnabled = true
         }
         binding.exitImageView.setOnClickListener {
-            viewModel.navigateBack()
+            setUpDialog()
+        }
+        requireActivity().onBackPressedDispatcher.addCallback {
+            setUpDialog()
         }
     }
 
@@ -107,5 +112,28 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
             setCurrentQuestion(1, viewModel.quizModel.questionsCount)
             setCurrentPoint(requireContext().getString(R.string.current_point), 0)
         }
+    }
+
+    private fun setUpDialog() {
+        val dialogFragment =
+            QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
+                .setCommonTextViewText(requireContext().getString(R.string.dialog_question))
+                .setPositiveButtonBackground(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.bkg_yes_button
+                    )!!
+                )
+                .setNegativeButtonBackground(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.bkg_no_button
+                    )!!
+                )
+                .setPositiveButtonAction {
+                    viewModel.navigateBack()
+                }
+                .build()
+        dialogFragment.show(parentFragmentManager, null)
     }
 }
