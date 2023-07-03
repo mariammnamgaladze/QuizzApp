@@ -12,7 +12,11 @@ import com.space.quizzapp.presentation.model.local.UserUIModel
 import com.space.quizzapp.presentation.model.local.mapper.UserDomainToUIMapper
 import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
 import com.space.quizzapp.presentation.model.remote.mapper.QuizItemDomainUIMapper
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 
 class HomeViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
@@ -64,7 +68,7 @@ class HomeViewModel(
     fun getActiveUsernames() {
         viewModelScope {
             val activeUser = getCurrentUserUseCase.invoke(true)
-            activeUsername = activeUser.username
+            activeUsername = activeUser!!.username
             _activeUsernames.emit(userDomainToUIMapper(activeUser))
         }
     }

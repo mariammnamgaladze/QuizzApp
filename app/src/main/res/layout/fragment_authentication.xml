@@ -41,7 +41,7 @@
         style="@style/smallMyriadGeo_Normal_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_40dp"
+        android:layout_marginTop="@dimen/dimen_90dp"
         android:background="@drawable/bkg_input"
         android:hint="@string/input_hint"
         android:inputType="textPersonName"

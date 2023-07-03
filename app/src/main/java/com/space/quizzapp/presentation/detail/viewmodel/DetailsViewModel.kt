@@ -26,7 +26,7 @@ class DetailsViewModel(
     fun getUserSubject() {
         viewModelScope {
             val currentUser = getCurrentUserUseCase(true)
-            val userSubjects = getUserSubjectUseCase(currentUser.username)
+            val userSubjects = getUserSubjectUseCase(currentUser?.username)
             val userSubjectUIModels = userSubjects.map { userSubjectDomainToUIMapper(it) }
             _subjectsItem.value = userSubjectUIModels
         }
@@ -35,7 +35,7 @@ class DetailsViewModel(
     fun updateActiveStatus(isActive: Boolean) {
         viewModelScope {
             val activeUser = getCurrentUserUseCase.invoke(true)
-            activeUsername = activeUser.username
+            activeUsername = activeUser!!.username
 
             updateUserActiveStatusUseCase.invoke(activeUsername to isActive)
 

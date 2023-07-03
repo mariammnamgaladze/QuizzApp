@@ -83,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="5"
-        android:padding="@dimen/dimen_44dp"
+        android:padding="@dimen/dimen_70dp"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/questionsBackgroundImageView"
         app:layout_constraintEnd_toEndOf="@+id/questionsBackgroundImageView"

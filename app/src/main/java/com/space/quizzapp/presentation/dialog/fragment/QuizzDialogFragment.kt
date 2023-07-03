@@ -27,6 +27,12 @@ class QuizzDialogFragment constructor(
     private var _binding: DialogLayoutBinding? = null
     private val binding get() = _binding!!
 
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.setCancelable(false)
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogLayoutBinding.inflate(LayoutInflater.from(requireContext()))
         val builder = AlertDialog.Builder(requireActivity())
@@ -35,6 +41,7 @@ class QuizzDialogFragment constructor(
         setupButtonActions(builder)
         val dialog = builder.create()
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(false)
         return dialog
     }
 
@@ -50,7 +57,7 @@ class QuizzDialogFragment constructor(
     }
 
     private fun setupButtonActions(builder: AlertDialog.Builder) {
-        when (dialogType!!) {
+        when (dialogType) {
             DialogType.TWO_BUTTON -> {
                 with(binding) {
                     closeTextView.visibility = GONE
@@ -62,7 +69,6 @@ class QuizzDialogFragment constructor(
                         negativeButtonAction?.invoke()
                         dismiss()
                     }
-                    builder.setCancelable(false)
                 }
             }
 

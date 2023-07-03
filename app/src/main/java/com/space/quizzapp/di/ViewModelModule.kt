@@ -4,6 +4,7 @@ import com.space.quizzapp.presentation.authentication.viewmodel.AuthenticationVi
 import com.space.quizzapp.presentation.detail.viewmodel.DetailsViewModel
 import com.space.quizzapp.presentation.home.viewmodel.HomeViewModel
 import com.space.quizzapp.presentation.question.viewmodel.QuestionsViewModel
+import com.space.quizzapp.presentation.splash.viewmode.SplashViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -20,5 +21,7 @@ val viewModelModule = module {
     viewModel {
         QuestionsViewModel(get(), get(), get())
     }
-
+    viewModel {
+        SplashViewModel(get())
+    }
 }

@@ -14,11 +14,15 @@ interface UserDao {
     suspend fun getUser(username: String): UserEntityModel?
 
     @Query("SELECT * FROM user_info WHERE isActive = :isActive")
-    suspend fun getCurrentUser(isActive: Boolean): UserEntityModel
+    suspend fun getCurrentUser(isActive: Boolean): UserEntityModel?
 
     @Query("UPDATE user_info SET isActive = :isActive WHERE username = :username")
     suspend fun updateUserActiveStatus(username: String, isActive: Boolean)
 
     @Query("UPDATE user_info SET gpa = :gpa WHERE username = :username")
     suspend fun updateGpa(username: String, gpa: Float)
+
+    @Query("SELECT * FROM user_info WHERE isActive = true")
+    suspend fun getActiveUser(): UserEntityModel?
+
 }

@@ -5,9 +5,9 @@ import com.space.quizzapp.domain.repository.local.UserRepository
 import com.space.quizzapp.domain.usecase.base.BaseUseCase
 
 class GetCurrentUserUseCase(private val userRepository: UserRepository) :
-    BaseUseCase<Boolean, UserDomainModel>() {
+    BaseUseCase<Boolean, UserDomainModel?>() {
 
-    override suspend operator fun invoke(params: Boolean?): UserDomainModel {
+    override suspend operator fun invoke(params: Boolean?): UserDomainModel? {
         return userRepository.getCurrentUser(params!!)
     }
 }

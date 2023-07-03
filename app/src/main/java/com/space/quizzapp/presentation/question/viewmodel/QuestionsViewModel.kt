@@ -58,22 +58,20 @@ class QuestionsViewModel(
         }
     }
 
-    private fun saveScore() {
-        viewModelScope {
-            val activeUser = getCurrentUserUseCase.invoke(true)
-            val userSubject = with(quizModel) {
-                UserSubjectUIModel(
-                    id,
-                    quizDescription,
-                    quizIcon,
-                    quizTitle,
-                    correctAnswerCount,
-                    activeUser.username,
-                    questionsCount
-                )
+    private suspend fun saveScore() {
+        val activeUser = getCurrentUserUseCase.invoke(true)
+        val userSubject = with(quizModel) {
+            UserSubjectUIModel(
+                id,
+                quizDescription,
+                quizIcon,
+                quizTitle,
+                correctAnswerCount,
+                activeUser!!.username,
+                questionsCount
+            )
             }
             insertUserSubjectUseCase.invoke(mapper(userSubject))
         }
     }
 
-}

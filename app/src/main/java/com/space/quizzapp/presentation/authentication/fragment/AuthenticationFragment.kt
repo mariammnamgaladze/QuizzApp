@@ -1,7 +1,6 @@
 package com.space.quizzapp.presentation.authentication.fragment
 
 import androidx.activity.addCallback
-import androidx.navigation.fragment.findNavController
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.collectAsync
 import com.space.quizzapp.common.extensions.showToast
@@ -19,6 +18,7 @@ class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
     override val layout: Int = R.layout.fragment_authentication
 
     override fun onBind() {
+        //iewModel.checkIfUserIsLoggedIn()
         collectAsync(viewModel.errorMessage) {
             requireContext().showToast(getString(R.string.incorrect_input))
         }

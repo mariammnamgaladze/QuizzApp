@@ -13,7 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModelForClass
 import kotlin.reflect.KClass
 
 
-abstract class BaseFragment<ViewModel : BaseViewModel>() : Fragment() {
+abstract class BaseFragment<ViewModel : BaseViewModel> : Fragment() {
 
     protected val viewModel: ViewModel by viewModelForClass(clazz = viewModelClass)
 
@@ -33,8 +33,8 @@ abstract class BaseFragment<ViewModel : BaseViewModel>() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onBind()
         observeNavigation()
+        onBind()
     }
 
     private fun observeNavigation() {

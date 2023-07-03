@@ -21,9 +21,9 @@ class UserRepositoryImp(
         return userDao.getUser(username) != null
     }
 
-    override suspend fun getCurrentUser(isActive: Boolean): UserDomainModel {
+    override suspend fun getCurrentUser(isActive: Boolean): UserDomainModel? {
         val userEntity = userDao.getCurrentUser(isActive)
-        return userEntityToDomainMapper(userEntity)
+        return userEntity?.let { userEntityToDomainMapper(it) }
     }
 
     override suspend fun updateUserActiveStatus(username: String, isActive: Boolean) {
@@ -33,4 +33,10 @@ class UserRepositoryImp(
     override suspend fun updateGpa(username: String, gpa: Float) {
         userDao.updateGpa(username, gpa)
     }
+
+    override suspend fun getActiveUser(): UserDomainModel? {
+        val userEntity = userDao.getActiveUser()
+        return userEntity?.let { userEntityToDomainMapper(it) }
+    }
+
 }

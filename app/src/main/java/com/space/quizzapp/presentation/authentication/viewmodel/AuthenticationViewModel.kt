@@ -12,10 +12,11 @@ import kotlinx.coroutines.flow.SharedFlow
 
 class AuthenticationViewModel(
     private val saveUserUseCase: SaveUserUseCase,
-    private val userUIToDomainMapper: UserUIToDomainMapper
+    private val userUIToDomainMapper: UserUIToDomainMapper,
 ) : BaseViewModel() {
     private val _errorMessage = MutableSharedFlow<Unit>()
     val errorMessage: SharedFlow<Unit> = _errorMessage
+
 
     fun checkUsernameAvailability(username: String) {
         viewModelScope {
@@ -37,7 +38,7 @@ class AuthenticationViewModel(
             isActive = true,
             gpa = 0.0f
         )
-        saveUserUseCase.invoke(userUIToDomainMapper(userInfo))
+        saveUserUseCase(userUIToDomainMapper(userInfo))
     }
 
     private fun navigateTo() {
