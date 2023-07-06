@@ -59,12 +59,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
         collectAsync(viewModel.error) {
             it?.let {
-                val dialogFragment =
-                    QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.ONE_BUTTON)
-                        .setCommonTextViewText((requireContext().getString(R.string.no_internet)))
-                        .setCloseText((requireContext().getString(R.string.close)))
-                        .build()
-                dialogFragment.show(parentFragmentManager, null)
+                setUpNoInternetDialog()
             }
         }
     }
@@ -75,7 +70,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             binding.greetingTextView.text = getString(R.string.greeting_text, it?.username)
             it?.gpa?.let { gpa ->
                 binding.gpaTV.setColoredTextWithPrefix(
-                    "GPA - ", gpa.convertToDecimals(1),
+                    requireContext().getString(R.string.gpa), gpa.convertToDecimals(1),
                     ContextCompat.getColor(requireContext(), R.color.yellow_primary)
                 )
             }
@@ -101,6 +96,15 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                 viewModel.navigateToQuiz(item)
             }
         })
+    }
+
+    private fun setUpNoInternetDialog(){
+        val dialogFragment =
+            QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.ONE_BUTTON)
+                .setCommonTextViewText((requireContext().getString(R.string.no_internet)))
+                .setCloseText((requireContext().getString(R.string.close)))
+                .build()
+        dialogFragment.show(parentFragmentManager, null)
     }
 
     private fun setUpLogOutDialog() {

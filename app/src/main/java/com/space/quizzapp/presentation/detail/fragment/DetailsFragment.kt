@@ -61,27 +61,30 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
             viewModel.navigateBack()
         }
         binding.logOutImageView.setOnClickListener {
-            val dialogFragment =
-                QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
-                    .setCommonTextViewText(requireContext().getString(R.string.dialog_log_out_question))
-                    .setPositiveButtonBackground(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.bkg_yes_button
-                        )!!
-                    )
-                    .setNegativeButtonBackground(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.bkg_no_button
-                        )!!
-                    )
-                    .setPositiveButtonAction {
-                        viewModel.updateActiveStatus(isActive = false)
-                        viewModel.navigate(DetailsFragmentDirections.actionDetailsFragmentToStartFragment())
-                    }
-                    .build()
-            dialogFragment.show(parentFragmentManager, null)
+            setUpLogOutDialog()
         }
+    }
+    private fun setUpLogOutDialog(){
+        val dialogFragment =
+            QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
+                .setCommonTextViewText(requireContext().getString(R.string.dialog_log_out_question))
+                .setPositiveButtonBackground(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.bkg_yes_button
+                    )!!
+                )
+                .setNegativeButtonBackground(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.bkg_no_button
+                    )!!
+                )
+                .setPositiveButtonAction {
+                    viewModel.updateActiveStatus(isActive = false)
+                    viewModel.navigate(DetailsFragmentDirections.actionDetailsFragmentToStartFragment())
+                }
+                .build()
+        dialogFragment.show(parentFragmentManager, null)
     }
 }

@@ -9,7 +9,6 @@ import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentQuestionsBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.dialog.fragment.QuizzDialogFragment
-import com.space.quizzapp.presentation.home.fragment.HomeFragmentDirections
 import com.space.quizzapp.presentation.question.custom_view.ProgressView
 import com.space.quizzapp.presentation.question.viewmodel.QuestionsViewModel
 import kotlin.reflect.KClass
@@ -35,17 +34,45 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
         initProgressView()
     }
 
-    private fun observer() {
+    private fun setListeners() {
+        with(binding) {
+            materialButton.setOnClickListener {
+                viewModel.getQuiz()
+            }
+            quizContainerView.itemListener = {
+                viewModel.updateCorrectPoints(it)
+                materialButton.isEnabled = true
+            }
+            exitImageView.setOnClickListener {
+                setUpPromptDialog()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback {
+            setUpPromptDialog()
+        }
+    }
 
+    private fun initProgressView() {
+        progressView = binding.progressView
+        with(progressView) {
+            setCurrentQuestion(1, viewModel.quizModel.questionsCount)
+            setCurrentPoint(requireContext().getString(R.string.current_point), 0)
+        }
+    }
+
+
+    private fun observer() {
         collectAsync(viewModel.quizItem) {
             it?.let {
                 progressView.setCurrentQuestion(
                     it.questionIndex + 1,
                     viewModel.quizModel.questionsCount
                 )
-                binding.materialButton.isEnabled = false
-                binding.questionsTextView.text = it.questionTitle
-                binding.quizContainerView.setAnswersList(it)
+                with(binding) {
+                    materialButton.isEnabled = false
+                    questionsTextView.text = it.questionTitle
+                    quizContainerView.setAnswersList(it)
+                }
             }
         }
 
@@ -65,56 +92,16 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
 
         collectAsync(viewModel.finalScore) { point ->
             point?.let { point ->
-                val dialogFragment =
-                    QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.ONE_BUTTON)
-                        .setImageView(
-                            ContextCompat.getDrawable(
-                                requireContext(),
-                                R.drawable.ic_congrats
-                            )!!
-                        )
-                        .setCommonTextViewText(requireContext().getString(R.string.congrats))
-                        .setCollectedPointsText(
-                            requireContext().getString(
-                                R.string.collected_points,
-                                point
-                            )
-                        )
-                        .setCloseText(requireContext().getString(R.string.close))
-                        .setButtonAction {
-                            viewModel.navigateBack()
-                        }
-                        .build()
-                dialogFragment.show(parentFragmentManager, null)
+                if (point == 0) {
+                    showAlertDialog(point, R.string.no_points_collected, R.string.sad_emoji)
+                } else {
+                    showAlertDialog(point, R.string.collected_points, R.string.congrats)
+                }
             }
         }
     }
 
-    private fun setListeners() {
-        binding.materialButton.setOnClickListener {
-            viewModel.getQuiz()
-        }
-        binding.quizContainerView.itemListener = {
-            viewModel.updateCorrectPoints(it)
-            binding.materialButton.isEnabled = true
-        }
-        binding.exitImageView.setOnClickListener {
-            setUpDialog()
-        }
-        requireActivity().onBackPressedDispatcher.addCallback {
-            setUpDialog()
-        }
-    }
-
-    private fun initProgressView() {
-        progressView = binding.progressView
-        with(progressView) {
-            setCurrentQuestion(1, viewModel.quizModel.questionsCount)
-            setCurrentPoint(requireContext().getString(R.string.current_point), 0)
-        }
-    }
-
-    private fun setUpDialog() {
+    private fun setUpPromptDialog() {
         val dialogFragment =
             QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
                 .setCommonTextViewText(requireContext().getString(R.string.dialog_question))
@@ -130,9 +117,23 @@ class QuestionsFragment : BaseFragment<QuestionsViewModel>() {
                         R.drawable.bkg_no_button
                     )!!
                 )
-                .setPositiveButtonAction {
-                    viewModel.navigateBack()
-                }
+                .setPositiveButtonAction { viewModel.navigateBack() }
+                .build()
+        dialogFragment.show(parentFragmentManager, null)
+    }
+
+    private fun showAlertDialog(point: Int, collectedPointsText: Int, alertText: Int) {
+        val dialogFragment =
+            QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.ONE_BUTTON)
+                .setCommonTextViewText(requireContext().getString(alertText))
+                .setCollectedPointsText(
+                    requireContext().getString(
+                        collectedPointsText,
+                        point
+                    )
+                )
+                .setCloseText(requireContext().getString(R.string.close))
+                .setButtonAction { viewModel.navigateBack() }
                 .build()
         dialogFragment.show(parentFragmentManager, null)
     }
