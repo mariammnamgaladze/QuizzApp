@@ -1,6 +1,6 @@
 package com.space.quizzapp.data.result_handler.retrofit
 
-import com.space.quizzapp.data.result_handler.error.NetworkErrorModel
+import com.space.quizzapp.data.result_handler.error.NetworkErrorThrowable
 import retrofit2.Response
 
 inline fun <DTO> apiDataFetcher(
@@ -11,9 +11,9 @@ inline fun <DTO> apiDataFetcher(
         if (response.isSuccessful) {
             response.body()!!
         } else {
-            throw NetworkErrorModel(errorMessage = response.message())
+            throw NetworkErrorThrowable(errorMessage = response.message())
         }
     } catch (e: Exception) {
-        throw NetworkErrorModel(errorMessage = e.message!!)
+        throw NetworkErrorThrowable(errorMessage = e.message!!)
     }
 }

@@ -2,7 +2,7 @@ package com.space.quizzapp.data.repository.remote
 
 import com.space.quizzapp.common.resource.ResponseHandler
 import com.space.quizzapp.data.remote.network.QuizApiService
-import com.space.quizzapp.data.result_handler.error.NetworkErrorModel
+import com.space.quizzapp.data.result_handler.error.NetworkErrorThrowable
 import com.space.quizzapp.data.result_handler.retrofit.apiDataFetcher
 import com.space.quizzapp.domain.model.remote.QuizItemDomainModel
 import com.space.quizzapp.domain.model.remote.mapper.QuizItemDTODomainMapper
@@ -26,7 +26,7 @@ class QuizRepositoryImpl(
                     quizItemDTODomainMapper(it)
                 }
                 emit(ResponseHandler.Success(quizSubjectDomainList))
-            } catch (e: NetworkErrorModel) {
+            } catch (e: NetworkErrorThrowable) {
                 emit(ResponseHandler.Error(e.errorMessage))
             }
         }

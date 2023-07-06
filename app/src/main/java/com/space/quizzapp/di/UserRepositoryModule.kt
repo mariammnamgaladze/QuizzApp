@@ -12,13 +12,13 @@ import com.space.quizzapp.domain.repository.remote.QuizRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<UserRepository> { UserRepositoryImp(get(), get(), get()) }
-    single<QuizRepository> { QuizRepositoryImpl(get(), QuizItemDTODomainMapper()) }
+    single<UserRepository> { UserRepositoryImp(userDao = get(), userDomainToEntityMapper = get(), userEntityToDomainMapper =  get()) }
+    single<QuizRepository> { QuizRepositoryImpl(apiService = get(), quizItemDTODomainMapper = get()) }
     single<UserSubjectRepository> {
         UserSubjectRepositoryImpl(
-            get(),
-            UserSubjectDomainToEntityMapper(),
-            UserSubjectEntityToDomainMapper()
+            userSubjectDao = get(),
+            domainToEntity = get(),
+            entityToDomain = get()
         )
     }
 }

@@ -10,18 +10,33 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel {
-        AuthenticationViewModel(get(), get())
+        AuthenticationViewModel(saveUserUseCase = get(), userUIToDomainMapper = get())
     }
     viewModel {
-        HomeViewModel(get(), get(), get(), get(), get())
+        HomeViewModel(
+            getCurrentUserUseCase = get(),
+            updateUserActiveStatusUseCase = get(),
+            getQuizUseCase = get(),
+            quizItemDomainUIMapper = get(),
+            userDomainToUIMapper = get()
+        )
     }
     viewModel {
-        DetailsViewModel(get(), get(), get(), get())
+        DetailsViewModel(
+            getCurrentUserUseCase = get(),
+            updateUserActiveStatusUseCase = get(),
+            getUserSubjectUseCase = get(),
+            userSubjectDomainToUIMapper = get()
+        )
     }
     viewModel {
-        QuestionsViewModel(get(), get(), get())
+        QuestionsViewModel(
+            getCurrentUserUseCase = get(),
+            insertUserSubjectUseCase = get(),
+            mapper = get()
+        )
     }
     viewModel {
-        SplashViewModel(get())
+        SplashViewModel(getActiveUserUseCase = get())
     }
 }

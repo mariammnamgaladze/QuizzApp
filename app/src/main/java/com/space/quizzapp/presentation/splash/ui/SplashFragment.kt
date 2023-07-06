@@ -1,5 +1,6 @@
 package com.space.quizzapp.presentation.splash.ui
 
+import android.util.Log
 import androidx.navigation.fragment.findNavController
 import com.space.quizzapp.R
 import com.space.quizzapp.common.extensions.collectAsync
@@ -16,9 +17,8 @@ class SplashFragment : BaseFragment<SplashViewModel>() {
 
     override fun onBind() {
         viewModel.checkIfUserIsLoggedIn()
-
-        collectAsync(viewModel.homeDestinationFlow) {
-            findNavController().navigate(it)
+        collectAsync(viewModel.destinationFlow) { destinationId ->
+            findNavController().navigate(destinationId)
         }
     }
 }

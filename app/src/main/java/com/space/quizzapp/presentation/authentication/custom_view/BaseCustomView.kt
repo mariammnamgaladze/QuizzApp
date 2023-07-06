@@ -1,4 +1,4 @@
-package com.space.quizzapp.presentation.custom_view
+package com.space.quizzapp.presentation.authentication.custom_view
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet

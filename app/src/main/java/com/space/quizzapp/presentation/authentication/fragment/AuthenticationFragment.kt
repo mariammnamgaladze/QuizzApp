@@ -18,7 +18,6 @@ class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
     override val layout: Int = R.layout.fragment_authentication
 
     override fun onBind() {
-        //iewModel.checkIfUserIsLoggedIn()
         collectAsync(viewModel.errorMessage) {
             requireContext().showToast(getString(R.string.incorrect_input))
         }
@@ -26,9 +25,11 @@ class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
     }
 
     private fun setListeners() {
-        binding.startButton.setOnClickListener {
-            val username = binding.usernameEditText.text.toString()
-            viewModel.checkUsernameAvailability(username)
+        with(binding) {
+            startButton.setOnClickListener {
+                val username = usernameEditText.text.toString()
+                viewModel.checkUsernameAvailability(username)
+            }
         }
         requireActivity().onBackPressedDispatcher.addCallback {
             requireActivity().finish()

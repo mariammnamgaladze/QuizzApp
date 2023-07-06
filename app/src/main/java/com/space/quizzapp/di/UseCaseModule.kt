@@ -11,12 +11,12 @@ import com.space.quizzapp.domain.usecase.user.update_user_status.UpdateUserActiv
 import org.koin.dsl.module
 
 val UseCaseModule = module {
-    single { UpdateUserActiveStatusUseCase(get()) }
-    single { SaveUserUseCase(get()) }
-    single { GetCurrentUserUseCase(get()) }
-    single { GetQuizUseCase(get()) }
-    single { InsertUserSubjectUseCase(get(), get()) }
-    single { GetUserSubjectUseCase(get()) }
-    single { UpdateGpaUseCase(get(), get()) }
-    single { GetActiveUserUseCase(get()) }
+    single { UpdateUserActiveStatusUseCase(userRepository = get()) }
+    single { SaveUserUseCase(userRepository = get()) }
+    single { GetCurrentUserUseCase(userRepository = get()) }
+    single { GetQuizUseCase(quizRepository = get()) }
+    single { InsertUserSubjectUseCase(userSubjectRepository = get(), updateGpaUseCase = get()) }
+    single { GetUserSubjectUseCase(userSubjectRepository = get()) }
+    single { UpdateGpaUseCase(userRepository = get(), getUserSubjectUseCase = get()) }
+    single { GetActiveUserUseCase(userRepository = get()) }
 }

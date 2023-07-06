@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
    >
 
-    <com.space.quizzapp.presentation.custom_view.StartBackgroundCustomView
+    <com.space.quizzapp.presentation.authentication.custom_view.StartBackgroundCustomView
         android:id="@+id/startBackgroundCustomView"
         android:layout_width="match_parent"
         app:layout_constraintHeight_percent="0.55"

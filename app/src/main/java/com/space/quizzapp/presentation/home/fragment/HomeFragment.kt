@@ -73,10 +73,12 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         viewModel.getActiveUsernames()
         collectAsync(viewModel.activeUsernames) {
             binding.greetingTextView.text = getString(R.string.greeting_text, it?.username)
-            binding.gpaTV.setColoredTextWithPrefix(
-                "GPA - ", it?.gpa!!.convertToDecimals(1),
-                ContextCompat.getColor(requireContext(), R.color.yellow_primary)
-            )
+            it?.gpa?.let { gpa ->
+                binding.gpaTV.setColoredTextWithPrefix(
+                    "GPA - ", gpa.convertToDecimals(1),
+                    ContextCompat.getColor(requireContext(), R.color.yellow_primary)
+                )
+            }
         }
     }
 
