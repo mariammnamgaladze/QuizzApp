@@ -1,12 +1,20 @@
 package com.space.quizzapp.presentation.home.fragment
 
+import HomeAdapter
+import android.view.View
+import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import com.space.quizzapp.R
+import com.space.quizzapp.common.extensions.collectAsync
+import com.space.quizzapp.common.extensions.convertToDecimals
 import com.space.quizzapp.common.extensions.lifecycleScope
+import com.space.quizzapp.common.extensions.setColoredTextWithPrefix
 import com.space.quizzapp.common.extensions.viewBinding
 import com.space.quizzapp.databinding.FragmentHomeBinding
 import com.space.quizzapp.presentation.base.fragment.BaseFragment
 import com.space.quizzapp.presentation.dialog.fragment.QuizzDialogFragment
 import com.space.quizzapp.presentation.home.viewmodel.HomeViewModel
+import com.space.quizzapp.presentation.model.remote.QuizItemUIModel
 import kotlin.reflect.KClass
 
 class HomeFragment : BaseFragment<HomeViewModel>() {
@@ -18,40 +26,109 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     override val layout: Int
         get() = R.layout.fragment_home
 
-    override fun onBind(viewModel: HomeViewModel) {
-        showUserInfo(viewModel)
-        setListeners()
-        dialogListener(viewModel)
+    private val homeAdapter by lazy {
+        HomeAdapter()
     }
 
-    private fun showUserInfo(viewModel: HomeViewModel) {
-        viewModel.getActiveUsernames()
+    override fun onBind() {
+        showUserInfo()
+        setListeners()
+        observer()
+        setUpRecycler()
+    }
+
+    private fun setUpRecycler() {
+        binding.homeRecyclerView.apply {
+            adapter = homeAdapter
+        }
         lifecycleScope {
-            viewModel.activeUsernames.collect {
-                binding.greetingTextView.text = getString(R.string.greeting_text, it)
+            viewModel.getQuiz()
+        }
+    }
+
+    private fun observer() {
+        collectAsync(viewModel.quizItems) {
+            homeAdapter.submitList(it)
+        }
+        collectAsync(viewModel.isLoading) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+        }
+        collectAsync(viewModel.error) {
+            it?.let {
+                setUpNoInternetDialog()
             }
         }
     }
 
+    private fun showUserInfo() {
+        viewModel.getActiveUsernames()
+        collectAsync(viewModel.activeUsernames) {
+            binding.greetingTextView.text = getString(R.string.greeting_text, it?.username)
+            it?.gpa?.let { gpa ->
+                binding.gpaTV.setColoredTextWithPrefix(
+                    requireContext().getString(R.string.gpa), gpa.convertToDecimals(1),
+                    ContextCompat.getColor(requireContext(), R.color.yellow_primary)
+                )
+            }
+        }
+    }
 
     private fun setListeners() {
-        with(binding) {
-            detailImageButton.setOnClickListener { navigateTo(R.id.action_homeFragment_to_detailsFragment) }
-            homeRecyclerView.setRecyclerListener { navigateTo(R.id.action_homeFragment_to_questionsFragment) }
+        requireActivity().onBackPressedDispatcher.addCallback {
+            setUpLogOutDialog()
         }
+
+        binding.logOutImageView.setOnClickListener {
+            setUpLogOutDialog()
+        }
+
+        with(binding) {
+            root.setOnClickListener {
+                viewModel.navigateTo(HomeFragmentDirections.actionHomeFragmentToDetailsFragment())
+            }
+        }
+        homeAdapter.setOnItemClickListener(object : HomeAdapter.OnItemClickListener {
+            override fun onItemClick(item: QuizItemUIModel) {
+                viewModel.navigateToQuiz(item)
+            }
+        })
     }
 
-    private fun dialogListener(viewModel: HomeViewModel) {
-        binding.logOutImageView.setOnClickListener {
-            QuizzDialogFragment.twoButtonState(
-                requireContext().getString(R.string.dialog_log_out_question),
-                requireContext().getDrawable(R.drawable.bkg_yes_button)!!,
-                requireContext().getDrawable(R.drawable.bkg_no_button)!!,
-                positiveButtonAction = {
+    private fun setUpNoInternetDialog(){
+        val dialogFragment =
+            QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.ONE_BUTTON)
+                .setCommonTextViewText((requireContext().getString(R.string.no_internet)))
+                .setCloseText((requireContext().getString(R.string.close)))
+                .build()
+        dialogFragment.show(parentFragmentManager, null)
+    }
+
+    private fun setUpLogOutDialog() {
+        val dialogFragment =
+            QuizzDialogFragment.DialogBuilder(QuizzDialogFragment.DialogType.TWO_BUTTON)
+                .setCommonTextViewText(requireContext().getString(R.string.dialog_log_out_question))
+                .setPositiveButtonBackground(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.bkg_yes_button
+                    )!!
+                )
+                .setNegativeButtonBackground(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.bkg_no_button
+                    )!!
+                )
+                .setPositiveButtonAction {
                     viewModel.updateActiveStatus(isActive = false)
-                    navigateTo(R.id.action_homeFragment_to_startFragment)
+                    viewModel.navigate(HomeFragmentDirections.actionHomeFragmentToStartFragment())
                 }
-            ) {}.show(parentFragmentManager, "")
-        }
+                .build()
+        dialogFragment.show(parentFragmentManager, null)
     }
 }
+

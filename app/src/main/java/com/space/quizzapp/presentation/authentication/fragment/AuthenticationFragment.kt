@@ -1,16 +1,14 @@
 package com.space.quizzapp.presentation.authentication.fragment
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
+import androidx.activity.addCallback
 import com.space.quizzapp.R
+import com.space.quizzapp.common.extensions.collectAsync
 import com.space.quizzapp.common.extensions.showToast
 import com.space.quizzapp.common.extensions.viewBinding
-import com.space.quizzapp.presentation.base.fragment.BaseFragment
-import com.space.quizzapp.presentation.authentication.viewmodel.AuthenticationViewModel
-import kotlin.reflect.KClass
 import com.space.quizzapp.databinding.FragmentAuthenticationBinding
-import kotlinx.coroutines.launch
+import com.space.quizzapp.presentation.authentication.viewmodel.AuthenticationViewModel
+import com.space.quizzapp.presentation.base.fragment.BaseFragment
+import kotlin.reflect.KClass
 
 class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
     private val binding by viewBinding(FragmentAuthenticationBinding::bind)
@@ -19,22 +17,22 @@ class AuthenticationFragment : BaseFragment<AuthenticationViewModel>() {
         get() = AuthenticationViewModel::class
     override val layout: Int = R.layout.fragment_authentication
 
-    override fun onBind(viewModel: AuthenticationViewModel) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.errorMessage.flowWithLifecycle(
-                viewLifecycleOwner.lifecycle,
-                Lifecycle.State.STARTED
-            ).collect {
-                requireContext().showToast(getString(R.string.incorrect_input))
-            }
+    override fun onBind() {
+        collectAsync(viewModel.errorMessage) {
+            requireContext().showToast(getString(R.string.incorrect_input))
         }
-        setListeners(viewModel)
+        setListeners()
     }
 
-    private fun setListeners(viewModel: AuthenticationViewModel) {
-        binding.startButton.setOnClickListener {
-            val username = binding.usernameEditText.text.toString()
-            viewModel.checkUsernameAvailability(username)
+    private fun setListeners() {
+        with(binding) {
+            startButton.setOnClickListener {
+                val username = usernameEditText.text.toString()
+                viewModel.checkUsernameAvailability(username)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback {
+            requireActivity().finish()
         }
     }
 }

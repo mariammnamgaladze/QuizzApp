@@ -8,5 +8,6 @@ data class UserEntityModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     var username: String,
-    var isActive:Boolean
+    var isActive: Boolean,
+    var gpa: Float
 )

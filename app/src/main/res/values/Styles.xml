@@ -12,6 +12,11 @@
         <item name="android:font">@font/myriad_geo</item>
     </style>
 
+    <style name="mediumMyriadGeo_Normal">
+        <item name="android:textSize">@dimen/dimen_16sp</item>
+        <item name="android:font">@font/myriad_geo</item>
+    </style>
+
     <style name="mediumMyriadGeo_Normal_blue">
         <item name="android:textSize">@dimen/dimen_16sp</item>
         <item name="android:textColor">@color/blue_secondary_default</item>

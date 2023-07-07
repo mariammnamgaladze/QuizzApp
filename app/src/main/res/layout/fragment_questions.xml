@@ -6,73 +6,89 @@
     android:layout_height="match_parent"
     tools:context=".presentation.question.fragment.QuestionsFragment">
 
-    <com.space.quizzapp.presentation.custom_view.QuizBackgroundCustomView
-        android:id="@+id/questionBackgroundCustomView"
+    <com.space.quizzapp.presentation.question.custom_view.QuizQuestionsContainerView
+        android:id="@+id/quizContainerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.3"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        app:layout_constraintHeight_percent="0.45"
+        app:layout_constraintBottom_toTopOf="@+id/materialButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/questionsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/dimen_20dp"
-        tools:listitem="@layout/answers_layout_item"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionsTextView"
         tools:itemCount="4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionBackgroundCustomView" />
+        tools:listitem="@layout/answers_layout_item" />
 
     <TextView
         android:id="@+id/subjectTextView"
+        style="@style/mediumMyriadGeo_Normal_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_15dp"
-        android:layout_marginStart="@dimen/dimen_20dp"
-        tools:text="პროგრამირება"
+        android:layout_marginStart="@dimen/dimen_44dp"
+        android:layout_marginTop="@dimen/dimen_20dp"
         android:textStyle="bold"
-        style="@style/BigMyriadGeo_Normal_black"
         app:layout_constraintEnd_toStartOf="@+id/exitImageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="პროგრამირება" />
 
     <ImageView
         android:id="@+id/exitImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_15dp"
+        android:padding="@dimen/dimen_10dp"
         android:src="@drawable/ic_exit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/questionsTextView"
-        android:layout_width="wrap_content"
+    <com.space.quizzapp.presentation.question.custom_view.ProgressView
+        android:id="@+id/progressView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_10dp"
-        tools:text="@tools:sample/lorem/random"
-        android:maxLines="5"
-        android:textStyle="bold"
-        style="@style/smallMyriadGeo_Normal_black"
-        android:padding="@dimen/dimen_30dp"
+        android:layout_marginHorizontal="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subjectTextView" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton"
         style="@style/mediumMyriadGeo_Normal_white"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dimen_343dp"
+        android:layout_height="@dimen/dimen_65dp"
         android:layout_marginHorizontal="@dimen/dimen_20dp"
-        android:layout_height="@dimen/dimen_60dp"
-        app:cornerRadius="@dimen/dimen_15dp"
         android:backgroundTint="@color/yellow_primary"
+        android:paddingHorizontal="@dimen/dimen_24dp"
+        android:paddingVertical="@dimen/dimen_14dp"
         android:text="@string/next"
-        app:layout_constraintStart_toStartOf="parent"
+        app:cornerRadius="@dimen/dimen_15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/dimen_60dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/quizContainerView" />
+
+    <ImageView
+        android:id="@+id/questionsBackgroundImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_20dp"
+        android:src="@drawable/bkg_questions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressView" />
+
+    <TextView
+        android:id="@+id/questionsTextView"
+        style="@style/smallMyriadGeo_Normal_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="5"
+        android:padding="@dimen/dimen_70dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/questionsBackgroundImageView"
+        app:layout_constraintEnd_toEndOf="@+id/questionsBackgroundImageView"
+        app:layout_constraintStart_toStartOf="@+id/questionsBackgroundImageView"
+        app:layout_constraintTop_toTopOf="@+id/questionsBackgroundImageView"
+        tools:text="@tools:sample/lorem/random" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

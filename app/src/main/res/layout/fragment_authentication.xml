@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
    >
 
-    <com.space.quizzapp.presentation.custom_view.StartBackgroundCustomView
+    <com.space.quizzapp.presentation.authentication.custom_view.StartBackgroundCustomView
         android:id="@+id/startBackgroundCustomView"
         android:layout_width="match_parent"
-        app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintHeight_percent="0.55"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,11 +41,11 @@
         style="@style/smallMyriadGeo_Normal_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_100dp"
+        android:layout_marginTop="@dimen/dimen_90dp"
         android:background="@drawable/bkg_input"
         android:hint="@string/input_hint"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
+        android:minHeight="@dimen/dimen_48dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,16 +55,16 @@
         android:id="@+id/startButton"
         style="@style/smallMyriadGeo_Normal_white"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dimen_44dp"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        android:layout_marginBottom="@dimen/dimen_56dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:layout_marginBottom="@dimen/dimen_75dp"
         android:backgroundTint="@color/yellow_primary"
         android:text="@string/start_quiz"
-        app:cornerRadius="@dimen/dimen_8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingHorizontal="@dimen/dimen_24dp"
+        android:paddingVertical="@dimen/dimen_14dp"
+        app:cornerRadius="@dimen/dimen_12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameEditText"
-        tools:ignore="TouchTargetSizeCheck"
-        android:elevation="0dp"/>
+        tools:ignore="TouchTargetSizeCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

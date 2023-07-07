@@ -1,10 +1,7 @@
 package com.space.quizzapp
 
 import android.app.Application
-import com.space.quizzapp.di.UseCaseModule
-import com.space.quizzapp.di.databaseModule
-import com.space.quizzapp.di.repositoryModule
-import com.space.quizzapp.di.viewModelModule
+import com.space.quizzapp.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
@@ -16,7 +13,8 @@ class QuizzApp : Application() {
             androidLogger()
             androidContext(this@QuizzApp)
             modules(
-                UseCaseModule, databaseModule, repositoryModule, viewModelModule
+                UseCaseModule, databaseModule, repositoryModule, viewModelModule, retrofitModule,
+                mapperModule
             )
         }
     }
